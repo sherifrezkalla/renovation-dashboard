@@ -1,0 +1,11 @@
+{
+  "name": "renovation-dashboard",
+  "version": "1.0.0",
+  "description": "Gdansk flat renovation spending dashboard",
+  "scripts": {
+    "start": "serve -s . -p ${PORT:-3000}"
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}

@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gdańsk Flat – Renovation Spend</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3350;
+    --text: #e8eaf0;
+    --muted: #7b82a0;
+    --kitchen: #4f9cf9;
+    --bathroom: #a78bfa;
+    --floor: #34d399;
+    --doors: #fbbf24;
+    --accent: #4f9cf9;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 14px;
+    min-height: 100vh;
+    padding: 24px;
+  }
+
+  /* ── Header ── */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .header h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.3px; }
+  .header p  { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .badge {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 6px 14px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+
+  /* ── KPI Cards ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 14px 14px 0 0;
+  }
+  .kpi-card.kitchen::before  { background: var(--kitchen); }
+  .kpi-card.bathroom::before { background: var(--bathroom); }
+  .kpi-card.floor::before    { background: var(--floor); }
+  .kpi-card.doors::before    { background: var(--doors); }
+  .kpi-card.total::before    { background: linear-gradient(90deg, var(--kitchen), var(--bathroom), var(--floor)); }
+  .kpi-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--muted);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .kpi-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .kpi-pln  { font-size: 26px; font-weight: 700; line-height: 1; margin-bottom: 4px; }
+  .kpi-eur  { font-size: 13px; color: var(--muted); }
+  .kpi-items { font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+  /* ── Charts Section ── */
+  .charts-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  @media (max-width: 760px) {
+    .charts-grid { grid-template-columns: 1fr; }
+  }
+  .chart-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .chart-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .chart-container { position: relative; }
+
+  /* ── Sub-breakdown bars ── */
+  .breakdown-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .breakdown-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .breakdown-title {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bar-row {
+    margin-bottom: 10px;
+  }
+  .bar-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    margin-bottom: 4px;
+    color: var(--text);
+  }
+  .bar-label span:last-child { color: var(--muted); }
+  .bar-track {
+    background: var(--surface2);
+    border-radius: 4px;
+    height: 6px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 0.8s ease;
+  }
+
+  /* ── Table ── */
+  .table-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-bottom: 24px;
+  }
+  .table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .table-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .filter-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover, .filter-btn.active {
+    border-color: var(--accent);
+    color: var(--text);
+    background: rgba(79, 156, 249, 0.1);
+  }
+  .filter-btn.kitchen.active  { border-color: var(--kitchen); color: var(--kitchen); background: rgba(79,156,249,0.1); }
+  .filter-btn.bathroom.active { border-color: var(--bathroom); color: var(--bathroom); background: rgba(167,139,250,0.1); }
+  .filter-btn.floor.active    { border-color: var(--floor); color: var(--floor); background: rgba(52,211,153,0.1); }
+  .filter-btn.doors.active    { border-color: var(--doors); color: var(--doors); background: rgba(251,191,36,0.1); }
+  .filter-btn.all.active      { border-color: var(--accent); color: var(--text); background: rgba(79,156,249,0.1); }
+
+  .search-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 5px 12px;
+    color: var(--text);
+    font-size: 12px;
+    width: 200px;
+    outline: none;
+  }
+  .search-box:focus { border-color: var(--accent); }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+  }
+  thead th {
+    text-align: left;
+    padding: 8px 12px;
+    color: var(--muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 11px;
+    border-bottom: 1px solid var(--border);
+  }
+  tbody tr {
+    border-bottom: 1px solid rgba(46,51,80,0.5);
+    transition: background 0.1s;
+  }
+  tbody tr:hover { background: var(--surface2); }
+  tbody td { padding: 9px 12px; }
+  .cat-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 10.5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  .cat-kitchen  { background: rgba(79,156,249,0.15);  color: var(--kitchen); }
+  .cat-bathroom { background: rgba(167,139,250,0.15); color: var(--bathroom); }
+  .cat-floor    { background: rgba(52,211,153,0.15);  color: var(--floor); }
+  .cat-doors    { background: rgba(251,191,36,0.15);  color: var(--doors); }
+  .amount-col { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+  .tr-hidden { display: none; }
+
+  .table-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .total-row td { font-weight: 700; color: var(--text); padding-top: 12px; border-top: 1px solid var(--border); }
+
+  /* ── Legend ── */
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 12px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  .note { font-size: 11px; color: var(--muted); margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>🏠 Gdańsk Flat — Renovation Spend</h1>
+    <p>Castorama orders · Feb–Mar 2026 · Source: actual order receipts</p>
+  </div>
+  <div class="badge">Last updated: 3 Mar 2026</div>
+</div>
+
+<!-- KPI Cards -->
+<div class="kpi-grid">
+  <div class="kpi-card kitchen">
+    <div class="kpi-label"><span class="kpi-dot" style="background:var(--kitchen)"></span> Kitchen</div>
+    <div class="kpi-pln" style="color:var(--kitchen)">17 638 zł</div>
+    <div class="kpi-eur">≈ €4 199</div>
+    <div class="kpi-items">51 items · Order 1803375072</div>
+  </div>
+  <div class="kpi-card bathroom">
+    <div class="kpi-label"><span class="kpi-dot" style="background:var(--bathroom)"></span> Bathroom</div>
+    <div class="kpi-pln" style="color:var(--bathroom)">10 648 zł</div>
+    <div class="kpi-eur">≈ €2 535</div>
+    <div class="kpi-items">13 items · Order 1803405507</div>
+  </div>
+  <div class="kpi-card floor">
+    <div class="kpi-label"><span class="kpi-dot" style="background:var(--floor)"></span> Floors</div>
+    <div class="kpi-pln" style="color:var(--floor)">6 002 zł</div>
+    <div class="kpi-eur">≈ €1 429</div>
+    <div class="kpi-items">3 items · Orders 1803381009 + 1803428689</div>
+  </div>
+  <div class="kpi-card doors">
+    <div class="kpi-label"><span class="kpi-dot" style="background:var(--doors)"></span> Doors</div>
+    <div class="kpi-pln" style="color:var(--doors)">2 413 zł</div>
+    <div class="kpi-eur">≈ €575</div>
+    <div class="kpi-items">9 items · Order 1803335747</div>
+  </div>
+  <div class="kpi-card total">
+    <div class="kpi-label"><span class="kpi-dot" style="background:linear-gradient(90deg,var(--kitchen),var(--bathroom))"></span> Total Spent</div>
+    <div class="kpi-pln">36 701 zł</div>
+    <div class="kpi-eur">≈ €8 738</div>
+    <div class="kpi-items">76 items across 5 orders</div>
+  </div>
+</div>
+
+<!-- Charts -->
+<div class="charts-grid">
+  <div class="chart-card">
+    <div class="chart-title">Spend by Category</div>
+    <div class="chart-container" style="height:240px">
+      <canvas id="donutChart"></canvas>
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--kitchen)"></div> Kitchen</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--bathroom)"></div> Bathroom</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--floor)"></div> Floors</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--doors)"></div> Doors</div>
+    </div>
+  </div>
+  <div class="chart-card">
+    <div class="chart-title">Top Items by Cost</div>
+    <div class="chart-container" style="height:260px">
+      <canvas id="barChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- Sub-breakdowns -->
+<div class="breakdown-section">
+
+  <div class="breakdown-card">
+    <div class="breakdown-title" style="color:var(--kitchen)">🍳 Kitchen Breakdown</div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Appliances</span><span>6 597 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--kitchen);width:100%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Worktops & Panels</span><span>1 721 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--kitchen);width:26%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Cabinetry & Fronts</span><span>6 827 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--kitchen);width:103%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Sink & Tap</span><span>851 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--kitchen);width:13%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Hardware & Lighting</span><span>1 641 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--kitchen);width:25%"></div></div>
+    </div>
+    <p class="note">Appliances: fridge, oven, induction hob, dishwasher, extractor</p>
+  </div>
+
+  <div class="breakdown-card">
+    <div class="breakdown-title" style="color:var(--bathroom)">🚿 Bathroom Breakdown</div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Tiles (Marika 50m²)</span><span>4 488 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--bathroom);width:100%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Plumbing & Fixtures</span><span>3 498 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--bathroom);width:78%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Furniture</span><span>1 058 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--bathroom);width:24%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Mirror & Lighting</span><span>1 156 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--bathroom);width:26%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Shower Enclosure</span><span>448 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--bathroom);width:10%"></div></div>
+    </div>
+    <p class="note">Grohe shower system + Grohe basin tap + Geberit frame + GoodHome units</p>
+  </div>
+
+  <div class="breakdown-card">
+    <div class="breakdown-title" style="color:var(--floor)">🪵 Floors Breakdown</div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Varillo Ceramstic 60×120 (22 pcs)</span><span>3 934 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--floor);width:100%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Marika 14,7×89 brown (15 pcs) ✅ paid 2 Mar</span><span>1 347 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--floor);width:34%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Marbis Paradyż 59.8×119.8 (7 pcs)</span><span>721 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--floor);width:18%"></div></div>
+    </div>
+    <p class="note">Varillo 31.68 m² + Marbis 10.01 m² + Marika 15.75 m² = ~57.4 m² total · delivery 3 Mar 08–12</p>
+    <div style="margin-top:14px">
+      <div class="breakdown-title" style="color:var(--doors)">🚪 Doors Breakdown</div>
+      <div class="bar-row">
+        <div class="bar-label"><span>3 × Fortia Exmoor doors</span><span>894 zł</span></div>
+        <div class="bar-track"><div class="bar-fill" style="background:var(--doors);width:100%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>Classen frames & beams</span><span>1 366 zł</span></div>
+        <div class="bar-track"><div class="bar-fill" style="background:var(--doors);width:100%"></div></div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label"><span>Handles & plates</span><span>153 zł</span></div>
+        <div class="bar-track"><div class="bar-fill" style="background:var(--doors);width:17%"></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Full Item Table -->
+<div class="table-card">
+  <div class="table-header">
+    <div class="table-title">All Items</div>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+      <div class="filter-group">
+        <button class="filter-btn all active"   onclick="filterTable('all')">All</button>
+        <button class="filter-btn kitchen"      onclick="filterTable('Kitchen')">🍳 Kitchen</button>
+        <button class="filter-btn bathroom"     onclick="filterTable('Bathroom')">🚿 Bathroom</button>
+        <button class="filter-btn floor"        onclick="filterTable('Floor')">🪵 Floors</button>
+        <button class="filter-btn doors"        onclick="filterTable('Doors')">🚪 Doors</button>
+      </div>
+      <input class="search-box" type="text" placeholder="Search items…" oninput="searchTable(this.value)" id="searchBox">
+    </div>
+  </div>
+
+  <div style="overflow-x:auto">
+  <table id="itemTable">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Category</th>
+        <th>Item</th>
+        <th>Order Date</th>
+        <th style="text-align:right">Qty</th>
+        <th style="text-align:right">Unit Price</th>
+        <th style="text-align:right">Gross (PLN)</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
+    <tfoot>
+      <tr class="total-row" id="totalRow">
+        <td colspan="6" style="text-align:right;font-weight:700;padding-right:12px">Total Shown</td>
+        <td class="amount-col" id="totalShown">—</td>
+      </tr>
+    </tfoot>
+  </table>
+  </div>
+  <div class="table-footer">
+    <span id="rowCount">Showing all 76 items</span>
+    <span>Prices include VAT (23%) · Exchange rate: 4.2 PLN/EUR</span>
+  </div>
+</div>
+
+<script>
+const items = [
+  // ── BATHROOM ──
+  {cat:"Bathroom", date:"23/02/2026", name:"Miska WC wisząca GoodHome Cavally (rimless + soft-close seat)", qty:"1", unit:"448,20", gross:448.20},
+  {cat:"Bathroom", date:"23/02/2026", name:"Kolumna prysznicowa Grohe Vitalio Start System 21cm + termostat", qty:"1", unit:"988,20", gross:988.20},
+  {cat:"Bathroom", date:"23/02/2026", name:"Bateria umywalkowa Grohe Start Quickfix S click-clack chrome", qty:"1", unit:"232,20", gross:232.20},
+  {cat:"Bathroom", date:"23/02/2026", name:"Szafka pod umywalkę GoodHome Imandra wisząca 60cm oak", qty:"1", unit:"538,20", gross:538.20},
+  {cat:"Bathroom", date:"23/02/2026", name:"Szafka wisząca GoodHome Imandra 60×90×36cm oak", qty:"1", unit:"520,20", gross:520.20},
+  {cat:"Bathroom", date:"23/02/2026", name:"Odpływ liniowy Jano Real 70cm chrome", qty:"1", unit:"439,20", gross:439.20},
+  {cat:"Bathroom", date:"23/02/2026", name:"Lustro owalne GoodHome Carder 50×100cm black LED", qty:"1", unit:"700,20", gross:700.20},
+  {cat:"Bathroom", date:"23/02/2026", name:"Kinkiet LED Struhm Mamba 12W 4000K black", qty:"1", unit:"205,20", gross:205.20},
+  {cat:"Bathroom", date:"23/02/2026", name:"Spot Luminex Demia 4×GU10 white", qty:"1", unit:"250,20", gross:250.20},
+  {cat:"Bathroom", date:"23/02/2026", name:"Kabina prysznicowa walk-in Ledava 100cm chrome/transparent", qty:"1", unit:"673,20", gross:673.20},
+  {cat:"Bathroom", date:"23/02/2026", name:"Stelaż podtynkowy Geberit Delta 01 white button", qty:"1", unit:"789,30", gross:789.30},
+  {cat:"Bathroom", date:"23/02/2026", name:"Umywalka ceramiczna GoodHome Lana 60cm + syphon", qty:"1", unit:"376,20", gross:376.20},
+  {cat:"Bathroom", date:"23/02/2026", name:"Gres Marika 14,7×89cm brown 1,05m² (tiles ×50 packs)", qty:"50", unit:"89,75", gross:4487.50},
+  // ── FLOOR ──
+  {cat:"Floor", date:"18/02/2026", name:"Gres Varillo Ceramstic 60×120cm luna mat 1,44m² (×22 packs)", qty:"22", unit:"178,84", gross:3934.48},
+  {cat:"Floor", date:"18/02/2026", name:"Gres Marbis Paradyż 59,8×119,8cm beige 1,43m² (×7 packs)", qty:"7", unit:"102,93", gross:720.51},
+  {cat:"Floor", date:"27/02/2026", name:"Gres Marika 14,7×89cm brązowy 1,05m² (×15 packs) — Order 1803428689 ✅ paid 2 Mar", qty:"15", unit:"89,75", gross:1347.25},
+  // ── KITCHEN ──
+  {cat:"Kitchen", date:"17/02/2026", name:"Panele do szafki kuchennej kolumnowej/AGD GoodHome 219cm white", qty:"1", unit:"268,20", gross:268.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Zaślepka do mimośrodu Stahl white 100pcs (×3)", qty:"3", unit:"8,98", gross:26.94},
+  {cat:"Kitchen", date:"17/02/2026", name:"Zestaw półek do szafki AGD GoodHome 60cm white", qty:"1", unit:"187,20", gross:187.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Front kuchenny do słupka GoodHome Artemisia 60cm shaker white", qty:"1", unit:"241,20", gross:241.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Front kuchenny GoodHome Artemisia 60cm classic shaker white (×2)", qty:"2", unit:"97,20", gross:194.40},
+  {cat:"Kitchen", date:"17/02/2026", name:"Zawias Titus 105° do lodówki w szafce kolumnowej (×3)", qty:"3", unit:"30,58", gross:91.74},
+  {cat:"Kitchen", date:"17/02/2026", name:"Kratka wentylacyjna GoodHome cokołowa", qty:"1", unit:"35,08", gross:35.08},
+  {cat:"Kitchen", date:"17/02/2026", name:"Panel maskujący do słupka GoodHome Artemisia 61×240cm (×2)", qty:"2", unit:"304,20", gross:608.40},
+  {cat:"Kitchen", date:"17/02/2026", name:"Korpus szafki kuchennej dolnej GoodHome Caraway 60cm (×3)", qty:"3", unit:"169,20", gross:507.60},
+  {cat:"Kitchen", date:"17/02/2026", name:"Front do szafki z 3 szufladami GoodHome Artemisia 60cm (×2)", qty:"2", unit:"133,20", gross:266.40},
+  {cat:"Kitchen", date:"17/02/2026", name:"Korpus szuflady GoodHome Soto 60cm anthracite (×2)", qty:"2", unit:"142,20", gross:284.40},
+  {cat:"Kitchen", date:"17/02/2026", name:"Korpus szuflady głębokiej GoodHome Soto 60cm anthracite (×5)", qty:"5", unit:"241,20", gross:1206.00},
+  {cat:"Kitchen", date:"17/02/2026", name:"Korpus szafki kuchennej dolnej GoodHome Caraway 30cm", qty:"1", unit:"151,20", gross:151.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Front kuchenny GoodHome Artemisia 30cm classic white", qty:"1", unit:"76,48", gross:76.48},
+  {cat:"Kitchen", date:"17/02/2026", name:"Kosz Cargo GoodHome Pebre 30cm", qty:"1", unit:"286,20", gross:286.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Korpus szafki piekarnikowej GoodHome Caraway 60cm", qty:"1", unit:"160,20", gross:160.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Blenda maskująca do szafki AGD Artemisia 59,7×5,8cm (×2)", qty:"2", unit:"58,48", gross:116.96},
+  {cat:"Kitchen", date:"17/02/2026", name:"Zestaw odbijający ciepło piekarnika GoodHome Cicely 600mm", qty:"1", unit:"38,05", gross:38.05},
+  {cat:"Kitchen", date:"17/02/2026", name:"Listwa do cokołu GoodHome Cicely silver", qty:"1", unit:"23,38", gross:23.38},
+  {cat:"Kitchen", date:"17/02/2026", name:"Zaślepki do szafek kuchennych", qty:"1", unit:"53,98", gross:53.98},
+  {cat:"Kitchen", date:"17/02/2026", name:"Front do szafki z szufladą GoodHome Artemisia 60cm shaker white", qty:"1", unit:"106,20", gross:106.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Korpus szafki kuchennej dolnej GoodHome Caraway 15cm", qty:"1", unit:"133,20", gross:133.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Front kuchenny GoodHome Artemisia 15cm classic white", qty:"1", unit:"62,98", gross:62.98},
+  {cat:"Kitchen", date:"17/02/2026", name:"Kosz wysuwany cargo GoodHome Pebre 150mm", qty:"1", unit:"232,20", gross:232.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Korpus szafki wiszącej wysokiej GoodHome Caraway 30cm", qty:"1", unit:"115,20", gross:115.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Front do szafki wiszącej wysokiej Artemisia 30cm shaker (×1)", qty:"1", unit:"89,08", gross:89.08},
+  {cat:"Kitchen", date:"17/02/2026", name:"Zawias cichy domyk GoodHome Kombu 110° (×7)", qty:"7", unit:"62,98", gross:440.86},
+  {cat:"Kitchen", date:"17/02/2026", name:"Korpus szafki wiszącej wysokiej GoodHome Caraway 60cm (×5)", qty:"5", unit:"151,20", gross:756.00},
+  {cat:"Kitchen", date:"17/02/2026", name:"Front do szafki wiszącej wysokiej Artemisia 60cm classic (×5)", qty:"5", unit:"124,20", gross:621.00},
+  {cat:"Kitchen", date:"17/02/2026", name:"Szyna do zawieszania Kaprys-Met G 1×40mm 2m (×3)", qty:"3", unit:"29,68", gross:89.04},
+  {cat:"Kitchen", date:"17/02/2026", name:"Korpus szafki wiszącej wysokiej GoodHome Caraway 15cm", qty:"1", unit:"106,20", gross:106.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Front do szafki wiszącej wysokiej Artemisia 15cm classic", qty:"1", unit:"75,58", gross:75.58},
+  {cat:"Kitchen", date:"17/02/2026", name:"Panel maskujący do szafki wiszącej Artemisia 36×96cm", qty:"1", unit:"80,98", gross:80.98},
+  {cat:"Kitchen", date:"17/02/2026", name:"Taśma aluminiowa termoizolacyjna GoodHome", qty:"1", unit:"17,98", gross:17.98},
+  {cat:"Kitchen", date:"17/02/2026", name:"Cokół GoodHome Artemisia 240×15cm classic shaker white (×2)", qty:"2", unit:"76,48", gross:152.96},
+  {cat:"Kitchen", date:"17/02/2026", name:"Listwa do cokołu GoodHome Cicely przezroczysta (×2)", qty:"2", unit:"26,98", gross:53.96},
+  {cat:"Kitchen", date:"17/02/2026", name:"Taśma obrzeżowa GoodHome Artemisia 3A shaker white", qty:"1", unit:"22,48", gross:22.48},
+  {cat:"Kitchen", date:"17/02/2026", name:"Uchwyt meblowy Roma 128mm black (×19)", qty:"19", unit:"9,43", gross:179.17},
+  {cat:"Kitchen", date:"17/02/2026", name:"Panel dolny maskujący Artemisia 90×61cm classic shaker white", qty:"1", unit:"89,98", gross:89.98},
+  {cat:"Kitchen", date:"17/02/2026", name:"Włącznik oświetlenia podszafkowego GoodHome Fidalgo + ruch sensor", qty:"1", unit:"12,58", gross:12.58},
+  {cat:"Kitchen", date:"17/02/2026", name:"Oświetlenie podszafkowe GoodHome Fidalgo CCT 630lm 54cm (×3)", qty:"3", unit:"62,98", gross:188.94},
+  {cat:"Kitchen", date:"17/02/2026", name:"Piekarnik multifunkcyjny Beko BBIM13300CDXE black", qty:"1", unit:"1 393,20", gross:1393.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Płyta indukcyjna Beko HQI 64400 MT", qty:"1", unit:"1 168,20", gross:1168.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Lodówka do zabudowy Beko BCNA NeoFrost 193cm white", qty:"1", unit:"2 428,20", gross:2428.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Okap podszafkowy Franke FBI 525 GR", qty:"1", unit:"385,20", gross:385.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Zlewozmywak granitowy Franke Sirius Sid 610-49 black", qty:"1", unit:"457,20", gross:457.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Bateria zlewozmywakowa Laveo Prado z wylewką U graphite", qty:"1", unit:"394,20", gross:394.20},
+  {cat:"Kitchen", date:"17/02/2026", name:"Ścianka kompaktowa Neutral Chambord/linear 3×600×3000mm (×2)", qty:"2", unit:"511,20", gross:1022.40},
+  {cat:"Kitchen", date:"17/02/2026", name:"Blat laminowany 3,8×62×305cm oak bavaria (×2)", qty:"2", unit:"349,20", gross:698.40},
+  {cat:"Kitchen", date:"17/02/2026", name:"Obrzeże laminowane 42×630mm oak bavaria (×2)", qty:"2", unit:"8,98", gross:17.96},
+  {cat:"Kitchen", date:"17/02/2026", name:"Zmywarka Beko 12l 60cm", qty:"1", unit:"1 222,20", gross:1222.20},
+  // ── DOORS ──
+  {cat:"Doors",  date:"09/02/2026", name:"Belka ościeżnicy regulowana Classen 80–100mm 80 white (×3)", qty:"3", unit:"115,20", gross:345.60},
+  {cat:"Doors",  date:"09/02/2026", name:"Baza ościeżnicy regulowana Classen 80–100mm lewa white (×2)", qty:"2", unit:"340,20", gross:680.40},
+  {cat:"Doors",  date:"09/02/2026", name:"Drzwi z podcięciem Fortia Exmoor Due 80 lewe white", qty:"1", unit:"298,00", gross:298.00},
+  {cat:"Doors",  date:"09/02/2026", name:"Drzwi pełne Fortia Exmoor Due 80 prawe white", qty:"1", unit:"298,00", gross:298.00},
+  {cat:"Doors",  date:"09/02/2026", name:"Drzwi pełne Fortia Exmoor Due 80 lewe white", qty:"1", unit:"298,00", gross:298.00},
+  {cat:"Doors",  date:"09/02/2026", name:"Klamka Ambition Eureka square shield black (×3)", qty:"3", unit:"31,48", gross:94.44},
+  {cat:"Doors",  date:"09/02/2026", name:"Szyld Ambition QZ-540 WC black mat", qty:"1", unit:"22,48", gross:22.48},
+  {cat:"Doors",  date:"09/02/2026", name:"Szyld Ambition QZ-540 na klucz black mat (×2)", qty:"2", unit:"17,98", gross:35.96},
+  {cat:"Doors",  date:"09/02/2026", name:"Baza ościeżnicy regulowana Classen 80–100mm prawa white", qty:"1", unit:"340,20", gross:340.20},
+];
+
+const catColors = {
+  Kitchen:  '#4f9cf9',
+  Bathroom: '#a78bfa',
+  Floor:    '#34d399',
+  Doors:    '#fbbf24',
+};
+
+let activeFilter = 'all';
+let activeSearch = '';
+
+function fmt(n) { return n.toLocaleString('pl-PL', {minimumFractionDigits:2, maximumFractionDigits:2}) + ' zł'; }
+
+function renderTable() {
+  const tbody = document.getElementById('tableBody');
+  tbody.innerHTML = '';
+  let n = 0, total = 0;
+  items.forEach((item, i) => {
+    const matchCat = activeFilter === 'all' || item.cat === activeFilter;
+    const matchSearch = !activeSearch || item.name.toLowerCase().includes(activeSearch.toLowerCase()) || item.cat.toLowerCase().includes(activeSearch.toLowerCase());
+    if (!matchCat || !matchSearch) return;
+    n++; total += item.gross;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="color:var(--muted)">${n}</td>
+      <td><span class="cat-pill cat-${item.cat.toLowerCase()}">${item.cat}</span></td>
+      <td>${item.name}</td>
+      <td style="color:var(--muted);white-space:nowrap">${item.date}</td>
+      <td class="amount-col" style="color:var(--muted)">${item.qty}</td>
+      <td class="amount-col" style="color:var(--muted)">${item.unit} zł</td>
+      <td class="amount-col">${fmt(item.gross)}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+  document.getElementById('totalShown').textContent = fmt(total);
+  document.getElementById('rowCount').textContent = `Showing ${n} of ${items.length} items`;
+}
+
+function filterTable(cat) {
+  activeFilter = cat;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  const btn = [...document.querySelectorAll('.filter-btn')].find(b => b.textContent.replace(/[^\w]/g,'').toLowerCase().includes(cat.toLowerCase()) || (cat==='all' && b.classList.contains('all')));
+  if (btn) btn.classList.add('active');
+  renderTable();
+}
+
+function searchTable(val) {
+  activeSearch = val;
+  renderTable();
+}
+
+// ── Donut Chart ──
+const donut = new Chart(document.getElementById('donutChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Kitchen', 'Bathroom', 'Floors', 'Doors'],
+    datasets: [{
+      data: [17637.74, 10648.00, 6002.24, 2413.08],
+      backgroundColor: ['#4f9cf9','#a78bfa','#34d399','#fbbf24'],
+      borderColor: '#1a1d27',
+      borderWidth: 3,
+      hoverOffset: 8,
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '68%',
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ` ${ctx.label}: ${ctx.parsed.toLocaleString('pl-PL',{minimumFractionDigits:2})} zł`
+        },
+        backgroundColor: '#22263a',
+        titleColor: '#e8eaf0',
+        bodyColor: '#7b82a0',
+        borderColor: '#2e3350',
+        borderWidth: 1,
+      }
+    }
+  }
+});
+
+// ── Top 12 items bar chart ──
+const topItems = [...items]
+  .sort((a,b) => b.gross - a.gross)
+  .slice(0,12);
+
+new Chart(document.getElementById('barChart'), {
+  type: 'bar',
+  data: {
+    labels: topItems.map(i => i.name.length > 38 ? i.name.substring(0,38)+'…' : i.name),
+    datasets: [{
+      data: topItems.map(i => i.gross),
+      backgroundColor: topItems.map(i => catColors[i.cat] + 'cc'),
+      borderColor:     topItems.map(i => catColors[i.cat]),
+      borderWidth: 1,
+      borderRadius: 4,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (ctx) => ` ${ctx.parsed.x.toLocaleString('pl-PL',{minimumFractionDigits:2})} zł`
+        },
+        backgroundColor: '#22263a',
+        titleColor: '#e8eaf0',
+        bodyColor: '#7b82a0',
+        borderColor: '#2e3350',
+        borderWidth: 1,
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: '#2e335044' },
+        ticks: { color: '#7b82a0', font: { size: 11 },
+          callback: v => v.toLocaleString('pl-PL') + ' zł'
+        }
+      },
+      y: {
+        grid: { display: false },
+        ticks: { color: '#e8eaf0', font: { size: 11 } }
+      }
+    }
+  }
+});
+
+renderTable();
+</script>
+</body>
+</html>
