@@ -17,6 +17,7 @@
     --bathroom: #a78bfa;
     --floor: #34d399;
     --doors: #fbbf24;
+    --furniture: #f97316;
     --accent: #4f9cf9;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -75,6 +76,7 @@
   .kpi-card.bathroom::before { background: var(--bathroom); }
   .kpi-card.floor::before    { background: var(--floor); }
   .kpi-card.doors::before    { background: var(--doors); }
+  .kpi-card.furniture::before { background: var(--furniture); }
   .kpi-card.total::before    { background: linear-gradient(90deg, var(--kitchen), var(--bathroom), var(--floor)); }
   .kpi-label {
     font-size: 12px;
@@ -211,8 +213,9 @@
   .filter-btn.kitchen.active  { border-color: var(--kitchen); color: var(--kitchen); background: rgba(79,156,249,0.1); }
   .filter-btn.bathroom.active { border-color: var(--bathroom); color: var(--bathroom); background: rgba(167,139,250,0.1); }
   .filter-btn.floor.active    { border-color: var(--floor); color: var(--floor); background: rgba(52,211,153,0.1); }
-  .filter-btn.doors.active    { border-color: var(--doors); color: var(--doors); background: rgba(251,191,36,0.1); }
-  .filter-btn.all.active      { border-color: var(--accent); color: var(--text); background: rgba(79,156,249,0.1); }
+  .filter-btn.doors.active      { border-color: var(--doors);      color: var(--doors);      background: rgba(251,191,36,0.1); }
+  .filter-btn.furniture.active  { border-color: var(--furniture);  color: var(--furniture);  background: rgba(249,115,22,0.1); }
+  .filter-btn.all.active        { border-color: var(--accent);     color: var(--text);       background: rgba(79,156,249,0.1); }
 
   .search-box {
     background: var(--surface2);
@@ -259,7 +262,8 @@
   .cat-kitchen  { background: rgba(79,156,249,0.15);  color: var(--kitchen); }
   .cat-bathroom { background: rgba(167,139,250,0.15); color: var(--bathroom); }
   .cat-floor    { background: rgba(52,211,153,0.15);  color: var(--floor); }
-  .cat-doors    { background: rgba(251,191,36,0.15);  color: var(--doors); }
+  .cat-doors      { background: rgba(251,191,36,0.15);  color: var(--doors); }
+  .cat-furniture  { background: rgba(249,115,22,0.15);  color: var(--furniture); }
   .amount-col { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
   .tr-hidden { display: none; }
 
@@ -319,11 +323,17 @@
     <div class="kpi-eur">≈ €575</div>
     <div class="kpi-items">9 items · Order 1803335747</div>
   </div>
+  <div class="kpi-card furniture">
+    <div class="kpi-label"><span class="kpi-dot" style="background:var(--furniture)"></span> Furniture</div>
+    <div class="kpi-pln" style="color:var(--furniture)">9 749 zł</div>
+    <div class="kpi-eur">≈ €2 321</div>
+    <div class="kpi-items">3 items · Sofa + 2 Wardrobes</div>
+  </div>
   <div class="kpi-card total">
     <div class="kpi-label"><span class="kpi-dot" style="background:linear-gradient(90deg,var(--kitchen),var(--bathroom))"></span> Total Spent</div>
-    <div class="kpi-pln">36 701 zł</div>
-    <div class="kpi-eur">≈ €8 738</div>
-    <div class="kpi-items">76 items across 5 orders</div>
+    <div class="kpi-pln">46 450 zł</div>
+    <div class="kpi-eur">≈ €11 060</div>
+    <div class="kpi-items">79 items across 6 orders</div>
   </div>
 </div>
 
@@ -339,6 +349,7 @@
       <div class="legend-item"><div class="legend-dot" style="background:var(--bathroom)"></div> Bathroom</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--floor)"></div> Floors</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--doors)"></div> Doors</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--furniture)"></div> Furniture</div>
     </div>
   </div>
   <div class="chart-card">
@@ -433,6 +444,23 @@
       </div>
     </div>
   </div>
+
+  <div class="breakdown-card">
+    <div class="breakdown-title" style="color:var(--furniture)">🛋️ Furniture Breakdown</div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Wardrobe 2</span><span>3 650 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:100%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Wardrobe 1</span><span>3 259 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:89%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Sofa</span><span>2 840 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:78%"></div></div>
+    </div>
+    <p class="note">Total furniture: 9 749 zł · ≈ €2 321</p>
+  </div>
 </div>
 
 <!-- Full Item Table -->
@@ -446,6 +474,7 @@
         <button class="filter-btn bathroom"     onclick="filterTable('Bathroom')">🚿 Bathroom</button>
         <button class="filter-btn floor"        onclick="filterTable('Floor')">🪵 Floors</button>
         <button class="filter-btn doors"        onclick="filterTable('Doors')">🚪 Doors</button>
+        <button class="filter-btn furniture"    onclick="filterTable('Furniture')">🛋️ Furniture</button>
       </div>
       <input class="search-box" type="text" placeholder="Search items…" oninput="searchTable(this.value)" id="searchBox">
     </div>
@@ -475,7 +504,7 @@
   </table>
   </div>
   <div class="table-footer">
-    <span id="rowCount">Showing all 76 items</span>
+    <span id="rowCount">Showing all 79 items</span>
     <span>Prices include VAT (23%) · Exchange rate: 4.2 PLN/EUR</span>
   </div>
 </div>
@@ -500,6 +529,10 @@ const items = [
   {cat:"Floor", date:"18/02/2026", name:"Gres Varillo Ceramstic 60×120cm luna mat 1,44m² (×22 packs)", qty:"22", unit:"178,84", gross:3934.48},
   {cat:"Floor", date:"18/02/2026", name:"Gres Marbis Paradyż 59,8×119,8cm beige 1,43m² (×7 packs)", qty:"7", unit:"102,93", gross:720.51},
   {cat:"Floor", date:"27/02/2026", name:"Gres Marika 14,7×89cm brązowy 1,05m² (×15 packs) — Order 1803428689 ✅ paid 2 Mar", qty:"15", unit:"89,75", gross:1347.25},
+  // ── FURNITURE ──
+  {cat:"Furniture", date:"21/03/2026", name:"Sofa", qty:"1", unit:"2 840,00", gross:2840.00},
+  {cat:"Furniture", date:"21/03/2026", name:"Wardrobe 1", qty:"1", unit:"3 259,00", gross:3259.00},
+  {cat:"Furniture", date:"21/03/2026", name:"Wardrobe 2", qty:"1", unit:"3 650,00", gross:3650.00},
   // ── KITCHEN ──
   {cat:"Kitchen", date:"17/02/2026", name:"Panele do szafki kuchennej kolumnowej/AGD GoodHome 219cm white", qty:"1", unit:"268,20", gross:268.20},
   {cat:"Kitchen", date:"17/02/2026", name:"Zaślepka do mimośrodu Stahl white 100pcs (×3)", qty:"3", unit:"8,98", gross:26.94},
@@ -565,10 +598,11 @@ const items = [
 ];
 
 const catColors = {
-  Kitchen:  '#4f9cf9',
-  Bathroom: '#a78bfa',
-  Floor:    '#34d399',
-  Doors:    '#fbbf24',
+  Kitchen:   '#4f9cf9',
+  Bathroom:  '#a78bfa',
+  Floor:     '#34d399',
+  Doors:     '#fbbf24',
+  Furniture: '#f97316',
 };
 
 let activeFilter = 'all';
@@ -618,10 +652,10 @@ function searchTable(val) {
 const donut = new Chart(document.getElementById('donutChart'), {
   type: 'doughnut',
   data: {
-    labels: ['Kitchen', 'Bathroom', 'Floors', 'Doors'],
+    labels: ['Kitchen', 'Bathroom', 'Floors', 'Doors', 'Furniture'],
     datasets: [{
-      data: [17637.74, 10648.00, 6002.24, 2413.08],
-      backgroundColor: ['#4f9cf9','#a78bfa','#34d399','#fbbf24'],
+      data: [17637.74, 10648.00, 6002.24, 2413.08, 9749.00],
+      backgroundColor: ['#4f9cf9','#a78bfa','#34d399','#fbbf24','#f97316'],
       borderColor: '#1a1d27',
       borderWidth: 3,
       hoverOffset: 8,
