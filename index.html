@@ -268,120 +268,80 @@
   .tr-hidden { display: none; }
 
   /* ── Still to Buy ── */
-  .stb-section {
-    margin-top: 32px;
-  }
+  .stb-section { margin-top: 32px; }
   .stb-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-    margin-bottom: 18px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 12px; margin-bottom: 18px;
   }
   .stb-header h2 { font-size: 17px; font-weight: 700; }
-  .stb-summary {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
+  .stb-summary { display: flex; gap: 16px; flex-wrap: wrap; }
   .stb-pill {
-    background: var(--surface2);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 5px 14px;
-    font-size: 12px;
-    color: var(--muted);
+    background: var(--surface2); border: 1px solid var(--border);
+    border-radius: 20px; padding: 5px 14px; font-size: 12px; color: var(--muted);
   }
   .stb-pill span { color: var(--text); font-weight: 600; }
+  .stb-progress-bar {
+    height: 4px; background: var(--surface2); border-radius: 2px;
+    margin-bottom: 18px; overflow: hidden;
+  }
+  .stb-progress-fill {
+    height: 100%; background: #34d399; border-radius: 2px; transition: width 0.4s ease;
+  }
   .stb-group {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    margin-bottom: 12px;
-    overflow: hidden;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 14px; margin-bottom: 12px; overflow: hidden;
   }
   .stb-group-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 12px 16px;
-    background: var(--surface2);
-    border-bottom: 1px solid var(--border);
-    font-size: 13px;
-    font-weight: 600;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px; background: var(--surface2);
+    border-bottom: 1px solid var(--border); font-size: 13px; font-weight: 600;
   }
-  .stb-group-total {
-    font-size: 12px;
-    color: var(--muted);
-  }
+  .stb-group-total { font-size: 12px; color: var(--muted); }
   .stb-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 11px 16px;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.15s;
-    cursor: pointer;
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 16px; border-bottom: 1px solid var(--border); transition: background 0.15s;
   }
   .stb-item:last-child { border-bottom: none; }
   .stb-item:hover { background: var(--surface2); }
-  .stb-item.done {
-    opacity: 0.45;
-  }
+  .stb-item.done { opacity: 0.4; }
   .stb-item.done .stb-name { text-decoration: line-through; color: var(--muted); }
   .stb-checkbox {
-    width: 18px; height: 18px;
-    border-radius: 5px;
-    border: 2px solid var(--border);
-    background: transparent;
-    flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s;
+    width: 18px; height: 18px; border-radius: 5px; border: 2px solid var(--border);
+    background: transparent; flex-shrink: 0; cursor: pointer;
+    display: flex; align-items: center; justify-content: center; transition: all 0.15s;
   }
-  .stb-item.done .stb-checkbox {
-    background: #34d399;
-    border-color: #34d399;
-  }
-  .stb-item.done .stb-checkbox::after {
-    content: '✓';
-    color: #0f1117;
-    font-size: 11px;
-    font-weight: 700;
-  }
-  .stb-name {
-    flex: 1;
-    font-size: 13px;
-  }
+  .stb-item.done .stb-checkbox { background: #34d399; border-color: #34d399; }
+  .stb-item.done .stb-checkbox::after { content: '✓'; color: #0f1117; font-size: 11px; font-weight: 700; }
+  .stb-name { flex: 1; font-size: 13px; cursor: default; }
   .stb-room {
-    font-size: 11px;
-    color: var(--muted);
-    background: var(--surface2);
-    border-radius: 10px;
-    padding: 2px 8px;
-    white-space: nowrap;
+    font-size: 11px; color: var(--muted); background: var(--surface2);
+    border-radius: 10px; padding: 2px 8px; white-space: nowrap; flex-shrink: 0;
+  }
+  .stb-price-wrap {
+    display: flex; align-items: center; gap: 6px; flex-shrink: 0; min-width: 110px; justify-content: flex-end;
   }
   .stb-price {
-    font-size: 13px;
-    font-weight: 600;
-    font-variant-numeric: tabular-nums;
-    white-space: nowrap;
-    min-width: 80px;
-    text-align: right;
+    font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums;
+    white-space: nowrap; text-align: right; cursor: default;
   }
-  .stb-progress-bar {
-    height: 4px;
-    background: var(--surface2);
-    border-radius: 2px;
-    margin-bottom: 18px;
-    overflow: hidden;
+  .stb-suggested { font-size: 10px; color: var(--muted); display: block; text-align: right; margin-top: 1px; }
+  .stb-edit-btn {
+    background: none; border: 1px solid var(--border); border-radius: 6px;
+    color: var(--muted); font-size: 11px; padding: 2px 7px; cursor: pointer;
+    transition: all 0.15s; white-space: nowrap; flex-shrink: 0;
   }
-  .stb-progress-fill {
-    height: 100%;
-    background: #34d399;
-    border-radius: 2px;
-    transition: width 0.4s ease;
+  .stb-edit-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .stb-price-input {
+    width: 90px; background: var(--surface2); border: 1px solid var(--accent);
+    border-radius: 6px; color: var(--text); font-size: 13px; font-weight: 600;
+    padding: 3px 8px; text-align: right; outline: none;
   }
+  .stb-save-btn {
+    background: var(--accent); border: none; border-radius: 6px;
+    color: #fff; font-size: 11px; padding: 3px 9px; cursor: pointer;
+    transition: opacity 0.15s; white-space: nowrap;
+  }
+  .stb-save-btn:hover { opacity: 0.8; }
 
   .table-footer {
     display: flex;
@@ -630,136 +590,13 @@
   <div class="stb-header">
     <h2>🛒 Still to Buy</h2>
     <div class="stb-summary">
-      <div class="stb-pill">Remaining: <span id="stbRemaining">6 728 zł</span></div>
-      <div class="stb-pill">Items left: <span id="stbCount">14</span></div>
-      <div class="stb-pill">≈ <span id="stbEur">€1 602</span></div>
+      <div class="stb-pill">Remaining: <span id="stbRemaining">—</span></div>
+      <div class="stb-pill">Items left: <span id="stbCount">—</span></div>
+      <div class="stb-pill">≈ <span id="stbEur">—</span></div>
     </div>
   </div>
   <div class="stb-progress-bar"><div class="stb-progress-fill" id="stbProgress" style="width:0%"></div></div>
-
-  <!-- IKEA Beds & Mattresses -->
-  <div class="stb-group">
-    <div class="stb-group-header">
-      <span>🛏️ Beds &amp; Mattresses (IKEA)</span>
-      <span class="stb-group-total" id="grp-beds-total">5 246 zł remaining</span>
-    </div>
-    <div class="stb-item" onclick="toggleSTB('bed1')" id="row-bed1">
-      <div class="stb-checkbox" id="chk-bed1"></div>
-      <div class="stb-name">TONSTAD bed frame with drawers 160×200cm oak veneer</div>
-      <div class="stb-room">Master Bedroom</div>
-      <div class="stb-price">2 299 zł</div>
-    </div>
-    <div class="stb-item" onclick="toggleSTB('bed2')" id="row-bed2">
-      <div class="stb-checkbox" id="chk-bed2"></div>
-      <div class="stb-name">VALEVÅG pocket spring mattress 160×200cm medium-firm</div>
-      <div class="stb-room">Master Bedroom</div>
-      <div class="stb-price">1 299 zł</div>
-    </div>
-    <div class="stb-item" onclick="toggleSTB('bed3')" id="row-bed3">
-      <div class="stb-checkbox" id="chk-bed3"></div>
-      <div class="stb-name">MALM bed frame with 2 storage boxes 90×200cm white</div>
-      <div class="stb-room">Guest Bedroom</div>
-      <div class="stb-price">799 zł</div>
-    </div>
-    <div class="stb-item" onclick="toggleSTB('bed4')" id="row-bed4">
-      <div class="stb-checkbox" id="chk-bed4"></div>
-      <div class="stb-name">VALEVÅG pocket spring mattress 90×200cm medium-firm</div>
-      <div class="stb-room">Guest Bedroom</div>
-      <div class="stb-price">849 zł</div>
-    </div>
-  </div>
-
-  <!-- Lighting -->
-  <div class="stb-group">
-    <div class="stb-group-header">
-      <span>💡 Lighting</span>
-      <span class="stb-group-total" id="grp-light-total">565 zł remaining</span>
-    </div>
-    <div class="stb-item" onclick="toggleSTB('light1')" id="row-light1">
-      <div class="stb-checkbox" id="chk-light1"></div>
-      <div class="stb-name">GoodHome Muscovy LED ceiling light 1350lm 3000K black (×3)</div>
-      <div class="stb-room">All rooms</div>
-      <div class="stb-price">387 zł</div>
-    </div>
-    <div class="stb-item" onclick="toggleSTB('light2')" id="row-light2">
-      <div class="stb-checkbox" id="chk-light2"></div>
-      <div class="stb-name">Lumiled 24W 4000K IP44 sensor ceiling light (×2)</div>
-      <div class="stb-room">Bathroom</div>
-      <div class="stb-price">178 zł</div>
-    </div>
-  </div>
-
-  <!-- Window Blinds -->
-  <div class="stb-group">
-    <div class="stb-group-header">
-      <span>🪟 Window Blinds</span>
-      <span class="stb-group-total" id="grp-blinds-total">394 zł remaining</span>
-    </div>
-    <div class="stb-item" onclick="toggleSTB('blind1')" id="row-blind1">
-      <div class="stb-checkbox" id="chk-blind1"></div>
-      <div class="stb-name">GoodHome Soyo roller blind 120×160cm white semi-sheer (×4)</div>
-      <div class="stb-room">Bedroom / Living</div>
-      <div class="stb-price">236 zł</div>
-    </div>
-    <div class="stb-item" onclick="toggleSTB('blind2')" id="row-blind2">
-      <div class="stb-checkbox" id="chk-blind2"></div>
-      <div class="stb-name">GoodHome Soyo roller blind 180×160cm white semi-sheer (×2)</div>
-      <div class="stb-room">Living Room</div>
-      <div class="stb-price">158 zł</div>
-    </div>
-  </div>
-
-  <!-- Bathroom Accessories -->
-  <div class="stb-group">
-    <div class="stb-group-header">
-      <span>🚿 Bathroom Accessories</span>
-      <span class="stb-group-total" id="grp-bathaccs-total">206 zł remaining</span>
-    </div>
-    <div class="stb-item" onclick="toggleSTB('bacc1')" id="row-bacc1">
-      <div class="stb-checkbox" id="chk-bacc1"></div>
-      <div class="stb-name">GoodHome Koros towel rail 40cm black (×2)</div>
-      <div class="stb-room">Bathroom</div>
-      <div class="stb-price">98 zł</div>
-    </div>
-    <div class="stb-item" onclick="toggleSTB('bacc2')" id="row-bacc2">
-      <div class="stb-checkbox" id="chk-bacc2"></div>
-      <div class="stb-name">GoodHome Koros toilet brush navy</div>
-      <div class="stb-room">Bathroom</div>
-      <div class="stb-price">39 zł</div>
-    </div>
-    <div class="stb-item" onclick="toggleSTB('bacc3')" id="row-bacc3">
-      <div class="stb-checkbox" id="chk-bacc3"></div>
-      <div class="stb-name">YOKA bathroom set black (bin + brush)</div>
-      <div class="stb-room">Bathroom</div>
-      <div class="stb-price">69 zł</div>
-    </div>
-  </div>
-
-  <!-- Home Essentials -->
-  <div class="stb-group">
-    <div class="stb-group-header">
-      <span>🏠 Home Essentials</span>
-      <span class="stb-group-total" id="grp-home-total">317 zł remaining</span>
-    </div>
-    <div class="stb-item" onclick="toggleSTB('home1')" id="row-home1">
-      <div class="stb-checkbox" id="chk-home1"></div>
-      <div class="stb-name">Prosperplast Sortibox recycling bin 3×25L grey (×2)</div>
-      <div class="stb-room">Kitchen</div>
-      <div class="stb-price">158 zł</div>
-    </div>
-    <div class="stb-item" onclick="toggleSTB('home2')" id="row-home2">
-      <div class="stb-checkbox" id="chk-home2"></div>
-      <div class="stb-name">Zone entrance mat 90×150cm grey anti-slip</div>
-      <div class="stb-room">Entrance</div>
-      <div class="stb-price">89 zł</div>
-    </div>
-    <div class="stb-item" onclick="toggleSTB('home3')" id="row-home3">
-      <div class="stb-checkbox" id="chk-home3"></div>
-      <div class="stb-name">DPM Alectro SA20 optical smoke detector (×2)</div>
-      <div class="stb-room">All rooms</div>
-      <div class="stb-price">70 zł</div>
-    </div>
-  </div>
+  <div id="stbGroups"></div>
 </div>
 
 <script>
@@ -986,75 +823,137 @@ new Chart(document.getElementById('barChart'), {
 renderTable();
 
 // ── Still to Buy ──
-const stbItems = {
-  bed1:   { price: 2299, group: 'beds'     },
-  bed2:   { price: 1299, group: 'beds'     },
-  bed3:   { price:  799, group: 'beds'     },
-  bed4:   { price:  849, group: 'beds'     },
-  light1: { price:  387, group: 'light'    },
-  light2: { price:  178, group: 'light'    },
-  blind1: { price:  236, group: 'blinds'   },
-  blind2: { price:  158, group: 'blinds'   },
-  bacc1:  { price:   98, group: 'bathaccs' },
-  bacc2:  { price:   39, group: 'bathaccs' },
-  bacc3:  { price:   69, group: 'bathaccs' },
-  home1:  { price:  158, group: 'home'     },
-  home2:  { price:   89, group: 'home'     },
-  home3:  { price:   70, group: 'home'     },
-};
-const STB_TOTAL = Object.values(stbItems).reduce((s, i) => s + i.price, 0);
-const STB_KEY   = 'gdansk_stb_v1';
+const STB_KEY = 'gdansk_stb_v2';
+
+// Template items — name is generic, suggested is the estimated price from the planning sheet
+const stbTemplate = [
+  { group: '🛏️ Beds & Mattresses', items: [
+    { id:'bed1',   name:'Bed frame 160×200cm (double)',          room:'Master Bedroom', suggested:2299 },
+    { id:'bed2',   name:'Mattress 160×200cm (double)',           room:'Master Bedroom', suggested:1299 },
+    { id:'bed3',   name:'Bed frame 90×200cm (single)',           room:'Guest Bedroom',  suggested:799  },
+    { id:'bed4',   name:'Mattress 90×200cm (single)',            room:'Guest Bedroom',  suggested:849  },
+  ]},
+  { group: '💡 Lighting', items: [
+    { id:'light1', name:'Ceiling light — living/bedroom (×3)',   room:'All rooms',      suggested:387  },
+    { id:'light2', name:'Ceiling light IP44 — bathroom (×2)',    room:'Bathroom',       suggested:178  },
+  ]},
+  { group: '🪟 Window Blinds', items: [
+    { id:'blind1', name:'Roller blind 120cm wide (×4)',          room:'Bedrooms',       suggested:236  },
+    { id:'blind2', name:'Roller blind 180cm wide (×2)',          room:'Living Room',    suggested:158  },
+  ]},
+  { group: '🚿 Bathroom Accessories', items: [
+    { id:'bacc1',  name:'Towel rail (×2)',                       room:'Bathroom',       suggested:98   },
+    { id:'bacc2',  name:'Toilet brush',                          room:'Bathroom',       suggested:39   },
+    { id:'bacc3',  name:'Bathroom bin + brush set',              room:'Bathroom',       suggested:69   },
+  ]},
+  { group: '🏠 Home Essentials', items: [
+    { id:'home1',  name:'Recycling bin set (×2)',                room:'Kitchen',        suggested:158  },
+    { id:'home2',  name:'Entrance mat',                          room:'Entrance',       suggested:89   },
+    { id:'home3',  name:'Smoke detector (×2)',                   room:'All rooms',      suggested:70   },
+  ]},
+];
 
 function loadSTB() {
   try { return JSON.parse(localStorage.getItem(STB_KEY) || '{}'); } catch(e) { return {}; }
 }
-function saveSTB(state) {
-  localStorage.setItem(STB_KEY, JSON.stringify(state));
+function saveSTB(state) { localStorage.setItem(STB_KEY, JSON.stringify(state)); }
+
+function activePrice(id, suggested) {
+  const state = loadSTB();
+  return (state[id] && state[id].price != null) ? state[id].price : suggested;
 }
 
 function toggleSTB(id) {
   const state = loadSTB();
-  state[id] = !state[id];
+  if (!state[id]) state[id] = {};
+  state[id].done = !state[id].done;
+  saveSTB(state);
+  renderSTB();
+}
+
+function startEditPrice(id, suggested) {
+  event.stopPropagation();
+  const wrap = document.getElementById('price-wrap-' + id);
+  const ap   = activePrice(id, suggested);
+  wrap.innerHTML =
+    '<input class="stb-price-input" id="pinput-'+id+'" type="number" value="'+ap+'" min="0" step="1">' +
+    '<button class="stb-save-btn" onclick="savePrice(\''+id+'\','+suggested+')">Save</button>';
+  document.getElementById('pinput-' + id).focus();
+  document.getElementById('pinput-' + id).select();
+  document.getElementById('pinput-' + id)
+    .addEventListener('keydown', e => { if(e.key==='Enter') savePrice(id, suggested); if(e.key==='Escape') renderSTB(); });
+}
+
+function savePrice(id, suggested) {
+  const input = document.getElementById('pinput-' + id);
+  if (!input) return;
+  const val = parseFloat(input.value);
+  if (isNaN(val) || val < 0) return;
+  const state = loadSTB();
+  if (!state[id]) state[id] = {};
+  state[id].price = val;
   saveSTB(state);
   renderSTB();
 }
 
 function renderSTB() {
-  const state   = loadSTB();
-  let remaining = 0;
-  let doneCount = 0;
+  const state = loadSTB();
+  const container = document.getElementById('stbGroups');
+  let totalRemaining = 0, doneCount = 0, totalItems = 0;
 
-  for (const [id, meta] of Object.entries(stbItems)) {
-    const done = !!state[id];
-    const row  = document.getElementById('row-' + id);
-    if (row) row.classList.toggle('done', done);
-    if (!done) remaining += meta.price;
-    else doneCount++;
+  let html = '';
+  for (const grp of stbTemplate) {
+    let grpRemaining = 0;
+    let rowsHtml = '';
+
+    for (const item of grp.items) {
+      totalItems++;
+      const s      = state[item.id] || {};
+      const done   = !!s.done;
+      const ap     = (s.price != null) ? s.price : item.suggested;
+      const isCustom = s.price != null && s.price !== item.suggested;
+      if (done) doneCount++;
+      else grpRemaining += ap;
+
+      const priceDisplay = ap.toLocaleString('pl-PL') + ' zł';
+      const suggestedHint = isCustom
+        ? '<span class="stb-suggested">suggested: ' + item.suggested.toLocaleString('pl-PL') + ' zł</span>'
+        : '<span class="stb-suggested">estimated</span>';
+
+      rowsHtml += `
+        <div class="stb-item${done?' done':''}" id="row-${item.id}">
+          <div class="stb-checkbox" onclick="toggleSTB('${item.id}')" id="chk-${item.id}"></div>
+          <div class="stb-name">${item.name}</div>
+          <div class="stb-room">${item.room}</div>
+          <div class="stb-price-wrap" id="price-wrap-${item.id}">
+            <div>
+              <div class="stb-price">${priceDisplay}</div>
+              ${suggestedHint}
+            </div>
+            <button class="stb-edit-btn" onclick="startEditPrice('${item.id}',${item.suggested})">✏️ edit</button>
+          </div>
+        </div>`;
+    }
+
+    totalRemaining += grpRemaining;
+    html += `
+      <div class="stb-group">
+        <div class="stb-group-header">
+          <span>${grp.group}</span>
+          <span class="stb-group-total">${grpRemaining.toLocaleString('pl-PL')} zł remaining</span>
+        </div>
+        ${rowsHtml}
+      </div>`;
   }
 
-  const leftCount = Object.keys(stbItems).length - doneCount;
-  document.getElementById('stbRemaining').textContent =
-    remaining.toLocaleString('pl-PL') + ' zł';
+  container.innerHTML = html;
+
+  const leftCount = totalItems - doneCount;
+  document.getElementById('stbRemaining').textContent = totalRemaining.toLocaleString('pl-PL') + ' zł';
   document.getElementById('stbCount').textContent = leftCount;
-  document.getElementById('stbEur').textContent =
-    '€' + Math.round(remaining / 4.2).toLocaleString('pl-PL');
-
-  const pct = Math.round((doneCount / Object.keys(stbItems).length) * 100);
+  document.getElementById('stbEur').textContent = '€' + Math.round(totalRemaining / 4.2).toLocaleString('pl-PL');
+  const pct = totalItems ? Math.round((doneCount / totalItems) * 100) : 0;
   document.getElementById('stbProgress').style.width = pct + '%';
-
-  // group totals
-  const groups = { beds: 0, light: 0, blinds: 0, bathaccs: 0, home: 0 };
-  for (const [id, meta] of Object.entries(stbItems)) {
-    if (!state[id]) groups[meta.group] += meta.price;
-  }
-  const groupLabels = {
-    beds: 'grp-beds-total', light: 'grp-light-total',
-    blinds: 'grp-blinds-total', bathaccs: 'grp-bathaccs-total', home: 'grp-home-total'
-  };
-  for (const [grp, elId] of Object.entries(groupLabels)) {
-    const el = document.getElementById(elId);
-    if (el) el.textContent = groups[grp].toLocaleString('pl-PL') + ' zł remaining';
-  }
 }
 
 renderSTB();
