@@ -405,9 +405,9 @@
   </div>
   <div class="kpi-card furniture">
     <div class="kpi-label"><span class="kpi-dot" style="background:var(--furniture)"></span> Furniture</div>
-    <div class="kpi-pln" style="color:var(--furniture)">9 749 zł</div>
-    <div class="kpi-eur">≈ €2 321</div>
-    <div class="kpi-items">3 items · Sofa + 2 Wardrobes</div>
+    <div class="kpi-pln" style="color:var(--furniture)">11 646 zł</div>
+    <div class="kpi-eur">≈ €2 773</div>
+    <div class="kpi-items">6 items · Sofa + Wardrobes + Dining + RTV + Coffee table</div>
   </div>
   <div class="kpi-card labour">
     <div class="kpi-label"><span class="kpi-dot" style="background:var(--labour)"></span> Labour</div>
@@ -417,9 +417,9 @@
   </div>
   <div class="kpi-card total">
     <div class="kpi-label"><span class="kpi-dot" style="background:linear-gradient(90deg,var(--kitchen),var(--bathroom))"></span> Total Spent</div>
-    <div class="kpi-pln">78 050 zł</div>
-    <div class="kpi-eur">≈ €18 583</div>
-    <div class="kpi-items">86 items · materials + labour</div>
+    <div class="kpi-pln">79 947 zł</div>
+    <div class="kpi-eur">≈ €19 035</div>
+    <div class="kpi-items">89 items · materials + labour</div>
   </div>
 </div>
 
@@ -546,7 +546,19 @@
       <div class="bar-label"><span>Sofa</span><span>2 840 zł</span></div>
       <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:78%"></div></div>
     </div>
-    <p class="note">Total furniture: 9 749 zł · ≈ €2 321</p>
+    <div class="bar-row">
+      <div class="bar-label"><span>SLIDE RTV stand 180cm — AGATA ✅ 26 Mar</span><span>868 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:24%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>NOBLITI Dining table — AGATA ✅ 26 Mar</span><span>632 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:17%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>BRITU Coffee table — AGATA ✅ 26 Mar</span><span>397 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:11%"></div></div>
+    </div>
+    <p class="note">Total furniture: 11 646 zł · ≈ €2 773 · Latest: AGATA receipt 26 Mar (1 897 zł, after 200 zł discount)</p>
   </div>
 
   <div class="breakdown-card">
@@ -625,7 +637,7 @@
   </table>
   </div>
   <div class="table-footer">
-    <span id="rowCount">Showing all 86 items</span>
+    <span id="rowCount">Showing all 89 items</span>
     <span>Prices include VAT (23%) · Exchange rate: 4.2 PLN/EUR</span>
   </div>
 </div>
@@ -668,6 +680,9 @@ const items = [
   {cat:"Furniture", date:"21/03/2026", name:"Sofa", qty:"1", unit:"2 840,00", gross:2840.00},
   {cat:"Furniture", date:"21/03/2026", name:"Wardrobe 1", qty:"1", unit:"3 259,00", gross:3259.00},
   {cat:"Furniture", date:"21/03/2026", name:"Wardrobe 2", qty:"1", unit:"3 650,00", gross:3650.00},
+  {cat:"Furniture", date:"26/03/2026", name:"NOBLITI Dining table (extendable, laminate/black legs) — AGATA", qty:"1", unit:"632,33", gross:632.33},
+  {cat:"Furniture", date:"26/03/2026", name:"SLIDE RTV stand 180cm (baroque golden oak) — AGATA", qty:"1", unit:"867,54", gross:867.54},
+  {cat:"Furniture", date:"26/03/2026", name:"BRITU ŁAWA QJ-260 Coffee table (yellow/black mat) — AGATA", qty:"1", unit:"397,13", gross:397.13},
   // ── LABOUR ──
   {cat:"Labour", date:"22/03/2026", name:"Robocizna Łazienka — full bathroom fit-out", qty:"1", unit:"10 000", gross:10000},
   {cat:"Labour", date:"22/03/2026", name:"Płytki podłogi — floor tiling labour", qty:"1", unit:"9 000", gross:9000},
@@ -798,7 +813,7 @@ const donut = new Chart(document.getElementById('donutChart'), {
   data: {
     labels: ['Kitchen', 'Bathroom', 'Floors', 'Doors', 'Furniture', 'Labour'],
     datasets: [{
-      data: [17637.74, 10648.00, 6002.24, 2413.08, 9749.00, 31600.00],
+      data: [17637.74, 10648.00, 6002.24, 2413.08, 11646.00, 31600.00],
       backgroundColor: ['#4f9cf9','#a78bfa','#34d399','#fbbf24','#f97316','#ec4899'],
       borderColor: '#1a1d27',
       borderWidth: 3,
@@ -893,11 +908,9 @@ const stbTemplate = [
     { id:'bed9',   name:'Chest of drawers / cupboard',                   room:'Guest Bedroom',  suggested:600 },
   ]},
   { group: '🛋️ Living Room', items: [
-    { id:'liv1',   name:'TV stand / RTV unit',                   room:'Living Room',    suggested:500  },
-    { id:'liv2',   name:'Coffee table',                          room:'Living Room',    suggested:400  },
-    { id:'liv3',   name:'Dining table + 4 chairs',               room:'Living/Kitchen', suggested:1500 },
     { id:'liv4',   name:'TV set — living room',                  room:'Living Room',    suggested:2000 },
     { id:'liv5',   name:'TV set — bedroom',                      room:'Master Bedroom', suggested:1200 },
+    { id:'liv6',   name:'Dining chairs (×4)',                    room:'Living/Kitchen', suggested:800  },
   ]},
   { group: '🧺 Appliances', items: [
     { id:'app1',   name:'Washing machine',                       room:'Hallway (WD)',   suggested:1800 },
