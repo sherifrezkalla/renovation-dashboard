@@ -405,9 +405,9 @@
   </div>
   <div class="kpi-card furniture">
     <div class="kpi-label"><span class="kpi-dot" style="background:var(--furniture)"></span> Furniture</div>
-    <div class="kpi-pln" style="color:var(--furniture)">11 646 zł</div>
-    <div class="kpi-eur">≈ €2 773</div>
-    <div class="kpi-items">6 items · Sofa + Wardrobes + Dining + RTV + Coffee table</div>
+    <div class="kpi-pln" style="color:var(--furniture)">12 245 zł</div>
+    <div class="kpi-eur">≈ €2 915</div>
+    <div class="kpi-items">7 items · Sofa + Wardrobes + Dining + RTV + Coffee table</div>
   </div>
   <div class="kpi-card labour">
     <div class="kpi-label"><span class="kpi-dot" style="background:var(--labour)"></span> Labour</div>
@@ -417,9 +417,9 @@
   </div>
   <div class="kpi-card total">
     <div class="kpi-label"><span class="kpi-dot" style="background:linear-gradient(90deg,var(--kitchen),var(--bathroom))"></span> Total Spent</div>
-    <div class="kpi-pln">79 947 zł</div>
-    <div class="kpi-eur">≈ €19 035</div>
-    <div class="kpi-items">89 items · materials + labour</div>
+    <div class="kpi-pln">80 546 zł</div>
+    <div class="kpi-eur">≈ €19 178</div>
+    <div class="kpi-items">90 items · materials + labour</div>
   </div>
 </div>
 
@@ -558,7 +558,7 @@
       <div class="bar-label"><span>BRITU Coffee table — AGATA ✅ 26 Mar</span><span>397 zł</span></div>
       <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:11%"></div></div>
     </div>
-    <p class="note">Total furniture: 11 646 zł · ≈ €2 773 · Latest: AGATA receipt 26 Mar (1 897 zł, after 200 zł discount)</p>
+    <p class="note">Total furniture: 12 245 zł · ≈ €2 915 · IKEA receipt 19 Mar (10 348 zł incl. delivery) · AGATA receipt 26 Mar (1 897 zł, after 200 zł discount)</p>
   </div>
 
   <div class="breakdown-card">
@@ -637,7 +637,7 @@
   </table>
   </div>
   <div class="table-footer">
-    <span id="rowCount">Showing all 89 items</span>
+    <span id="rowCount">Showing all 90 items</span>
     <span>Prices include VAT (23%) · Exchange rate: 4.2 PLN/EUR</span>
   </div>
 </div>
@@ -677,9 +677,10 @@ const items = [
   {cat:"Floor", date:"18/02/2026", name:"Gres Marbis Paradyż 59,8×119,8cm beige 1,43m² (×7 packs)", qty:"7", unit:"102,93", gross:720.51},
   {cat:"Floor", date:"27/02/2026", name:"Gres Marika 14,7×89cm brązowy 1,05m² (×15 packs) — Order 1803428689 ✅ paid 2 Mar", qty:"15", unit:"89,75", gross:1347.25},
   // ── FURNITURE ──
-  {cat:"Furniture", date:"21/03/2026", name:"Sofa", qty:"1", unit:"2 840,00", gross:2840.00},
-  {cat:"Furniture", date:"21/03/2026", name:"Wardrobe 1", qty:"1", unit:"3 259,00", gross:3259.00},
-  {cat:"Furniture", date:"21/03/2026", name:"Wardrobe 2", qty:"1", unit:"3 650,00", gross:3650.00},
+  {cat:"Furniture", date:"19/03/2026", name:"BÅRSLÖV sofa 3-seater convertible — IKEA", qty:"1", unit:"2 799,00", gross:2799.00},
+  {cat:"Furniture", date:"19/03/2026", name:"PAX Wardrobe 1 (50+100+50cm, 4× TYSSEDAL doors) — IKEA", qty:"1", unit:"3 689,98", gross:3689.98},
+  {cat:"Furniture", date:"19/03/2026", name:"PAX Wardrobe 2 (75+50+50cm, TYSSEDAL + AHEIM mirror door) — IKEA", qty:"1", unit:"3 259,98", gross:3259.98},
+  {cat:"Furniture", date:"19/03/2026", name:"IKEA delivery + carrying in (standard)", qty:"1", unit:"599,00", gross:599.00},
   {cat:"Furniture", date:"26/03/2026", name:"NOBLITI Dining table (extendable, laminate/black legs) — AGATA", qty:"1", unit:"632,33", gross:632.33},
   {cat:"Furniture", date:"26/03/2026", name:"SLIDE RTV stand 180cm (baroque golden oak) — AGATA", qty:"1", unit:"867,54", gross:867.54},
   {cat:"Furniture", date:"26/03/2026", name:"BRITU ŁAWA QJ-260 Coffee table (yellow/black mat) — AGATA", qty:"1", unit:"397,13", gross:397.13},
@@ -813,7 +814,7 @@ const donut = new Chart(document.getElementById('donutChart'), {
   data: {
     labels: ['Kitchen', 'Bathroom', 'Floors', 'Doors', 'Furniture', 'Labour'],
     datasets: [{
-      data: [17637.74, 10648.00, 6002.24, 2413.08, 11646.00, 31600.00],
+      data: [17637.74, 10648.00, 6002.24, 2413.08, 12244.96, 31600.00],
       backgroundColor: ['#4f9cf9','#a78bfa','#34d399','#fbbf24','#f97316','#ec4899'],
       borderColor: '#1a1d27',
       borderWidth: 3,
