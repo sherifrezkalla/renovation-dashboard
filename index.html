@@ -18,6 +18,7 @@
     --floor: #34d399;
     --doors: #fbbf24;
     --furniture: #f97316;
+    --appliances: #06b6d4;
     --labour: #ec4899;
     --accent: #4f9cf9;
   }
@@ -77,8 +78,9 @@
   .kpi-card.bathroom::before { background: var(--bathroom); }
   .kpi-card.floor::before    { background: var(--floor); }
   .kpi-card.doors::before    { background: var(--doors); }
-  .kpi-card.furniture::before { background: var(--furniture); }
-  .kpi-card.labour::before    { background: var(--labour); }
+  .kpi-card.furniture::before    { background: var(--furniture); }
+  .kpi-card.appliances::before   { background: var(--appliances); }
+  .kpi-card.labour::before       { background: var(--labour); }
   .kpi-card.total::before    { background: linear-gradient(90deg, var(--kitchen), var(--bathroom), var(--floor)); }
   .kpi-label {
     font-size: 12px;
@@ -216,8 +218,9 @@
   .filter-btn.bathroom.active { border-color: var(--bathroom); color: var(--bathroom); background: rgba(167,139,250,0.1); }
   .filter-btn.floor.active    { border-color: var(--floor); color: var(--floor); background: rgba(52,211,153,0.1); }
   .filter-btn.doors.active      { border-color: var(--doors);      color: var(--doors);      background: rgba(251,191,36,0.1); }
-  .filter-btn.furniture.active  { border-color: var(--furniture);  color: var(--furniture);  background: rgba(249,115,22,0.1); }
-  .filter-btn.labour.active     { border-color: var(--labour);    color: var(--labour);    background: rgba(236,72,153,0.1); }
+  .filter-btn.furniture.active   { border-color: var(--furniture);   color: var(--furniture);   background: rgba(249,115,22,0.1); }
+  .filter-btn.appliances.active  { border-color: var(--appliances);  color: var(--appliances);  background: rgba(6,182,212,0.1); }
+  .filter-btn.labour.active      { border-color: var(--labour);      color: var(--labour);      background: rgba(236,72,153,0.1); }
   .filter-btn.all.active        { border-color: var(--accent);     color: var(--text);       background: rgba(79,156,249,0.1); }
 
   .search-box {
@@ -266,8 +269,9 @@
   .cat-bathroom { background: rgba(167,139,250,0.15); color: var(--bathroom); }
   .cat-floor    { background: rgba(52,211,153,0.15);  color: var(--floor); }
   .cat-doors      { background: rgba(251,191,36,0.15);  color: var(--doors); }
-  .cat-furniture  { background: rgba(249,115,22,0.15);  color: var(--furniture); }
-  .cat-labour     { background: rgba(236,72,153,0.15);  color: var(--labour); }
+  .cat-furniture   { background: rgba(249,115,22,0.15);  color: var(--furniture); }
+  .cat-appliances  { background: rgba(6,182,212,0.15);   color: var(--appliances); }
+  .cat-labour      { background: rgba(236,72,153,0.15);  color: var(--labour); }
   .amount-col { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
   .tr-hidden { display: none; }
 
@@ -374,7 +378,7 @@
     <h1>🏠 Gdańsk Flat — Renovation Spend</h1>
     <p>Castorama orders · Feb–Mar 2026 · Source: actual order receipts</p>
   </div>
-  <div class="badge">Last updated: 3 Mar 2026</div>
+  <div class="badge">Last updated: 28 Mar 2026</div>
 </div>
 
 <!-- KPI Cards -->
@@ -405,9 +409,15 @@
   </div>
   <div class="kpi-card furniture">
     <div class="kpi-label"><span class="kpi-dot" style="background:var(--furniture)"></span> Furniture</div>
-    <div class="kpi-pln" style="color:var(--furniture)">12 245 zł</div>
-    <div class="kpi-eur">≈ €2 915</div>
-    <div class="kpi-items">7 items · Sofa + Wardrobes + Dining + RTV + Coffee table</div>
+    <div class="kpi-pln" style="color:var(--furniture)">20 556 zł</div>
+    <div class="kpi-eur">≈ €4 894</div>
+    <div class="kpi-items">26 items · Wardrobes · Beds · Sofa · Chairs · Lighting</div>
+  </div>
+  <div class="kpi-card appliances">
+    <div class="kpi-label"><span class="kpi-dot" style="background:var(--appliances)"></span> Appliances</div>
+    <div class="kpi-pln" style="color:var(--appliances)">5 022 zł</div>
+    <div class="kpi-eur">≈ €1 196</div>
+    <div class="kpi-items">5 items · 2× Samsung TV · BEKO washer-dryer</div>
   </div>
   <div class="kpi-card labour">
     <div class="kpi-label"><span class="kpi-dot" style="background:var(--labour)"></span> Labour</div>
@@ -417,9 +427,9 @@
   </div>
   <div class="kpi-card total">
     <div class="kpi-label"><span class="kpi-dot" style="background:linear-gradient(90deg,var(--kitchen),var(--bathroom))"></span> Total Spent</div>
-    <div class="kpi-pln">80 546 zł</div>
-    <div class="kpi-eur">≈ €19 178</div>
-    <div class="kpi-items">90 items · materials + labour</div>
+    <div class="kpi-pln">93 879 zł</div>
+    <div class="kpi-eur">≈ €22 352</div>
+    <div class="kpi-items">114 items · materials + labour</div>
   </div>
 </div>
 
@@ -436,6 +446,7 @@
       <div class="legend-item"><div class="legend-dot" style="background:var(--floor)"></div> Floors</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--doors)"></div> Doors</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--furniture)"></div> Furniture</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--appliances)"></div> Appliances</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--labour)"></div> Labour</div>
     </div>
   </div>
@@ -535,30 +546,51 @@
   <div class="breakdown-card">
     <div class="breakdown-title" style="color:var(--furniture)">🛋️ Furniture Breakdown</div>
     <div class="bar-row">
-      <div class="bar-label"><span>Wardrobe 2</span><span>3 650 zł</span></div>
+      <div class="bar-label"><span>PAX Wardrobes × 2 — IKEA ✅ 19 Mar</span><span>6 950 zł</span></div>
       <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:100%"></div></div>
     </div>
     <div class="bar-row">
-      <div class="bar-label"><span>Wardrobe 1</span><span>3 259 zł</span></div>
-      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:89%"></div></div>
+      <div class="bar-label"><span>Beds × 2 + Mattresses × 2 — IKEA ✅ 28 Mar</span><span>4 395 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:63%"></div></div>
     </div>
     <div class="bar-row">
-      <div class="bar-label"><span>Sofa</span><span>2 840 zł</span></div>
-      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:78%"></div></div>
+      <div class="bar-label"><span>Sofa BÅRSLÖV + LISABO chairs ×4 + VÄSMAN ×2 — IKEA</span><span>4 193 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:60%"></div></div>
     </div>
     <div class="bar-row">
-      <div class="bar-label"><span>SLIDE RTV stand 180cm — AGATA ✅ 26 Mar</span><span>868 zł</span></div>
-      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:24%"></div></div>
+      <div class="bar-label"><span>Tables + Storage (AGATA 26 Mar + IKEA 28 Mar)</span><span>3 173 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:46%"></div></div>
     </div>
     <div class="bar-row">
-      <div class="bar-label"><span>NOBLITI Dining table — AGATA ✅ 26 Mar</span><span>632 zł</span></div>
-      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:17%"></div></div>
+      <div class="bar-label"><span>IKEA deliveries (19 Mar + 28 Mar)</span><span>928 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:13%"></div></div>
     </div>
     <div class="bar-row">
-      <div class="bar-label"><span>BRITU Coffee table — AGATA ✅ 26 Mar</span><span>397 zł</span></div>
-      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:11%"></div></div>
+      <div class="bar-label"><span>Lighting — IKEA ✅ 28 Mar</span><span>917 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--furniture);width:13%"></div></div>
     </div>
-    <p class="note">Total furniture: 12 245 zł · ≈ €2 915 · IKEA receipt 19 Mar (10 348 zł incl. delivery) · AGATA receipt 26 Mar (1 897 zł, after 200 zł discount)</p>
+    <p class="note">Total: 20 556 zł · ≈ €4 894 · IKEA 19 Mar (10 348 zł) · AGATA 26 Mar (1 897 zł) · IKEA 28 Mar (8 311 zł, delivery 01 Apr)</p>
+  </div>
+
+  <div class="breakdown-card">
+    <div class="breakdown-title" style="color:var(--appliances)">📺 Appliances Breakdown</div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Samsung QE55Q7F4AUXXH QLED 55" — ETC ✅ 27 Mar</span><span>2 017 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--appliances);width:100%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Samsung UE43U8092FUXXH 4K 43" — ETC ✅ 27 Mar</span><span>1 499 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--appliances);width:74%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>BEKO HTU7716XW washer-dryer — ETC ✅ 27 Mar</span><span>1 299 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--appliances);width:64%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Delivery + installation (ETC)</span><span>207 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--appliances);width:10%"></div></div>
+    </div>
+    <p class="note">ETC Gdańsk Al. Rzeczypospolitej 33 · receipt 27 Mar 2026 · Total: 5 022 zł · ≈ €1 196</p>
   </div>
 
   <div class="breakdown-card">
@@ -607,6 +639,7 @@
         <button class="filter-btn floor"        onclick="filterTable('Floor')">🪵 Floors</button>
         <button class="filter-btn doors"        onclick="filterTable('Doors')">🚪 Doors</button>
         <button class="filter-btn furniture"    onclick="filterTable('Furniture')">🛋️ Furniture</button>
+        <button class="filter-btn appliances"   onclick="filterTable('Appliances')">📺 Appliances</button>
         <button class="filter-btn labour"       onclick="filterTable('Labour')">🔧 Labour</button>
       </div>
       <input class="search-box" type="text" placeholder="Search items…" oninput="searchTable(this.value)" id="searchBox">
@@ -754,15 +787,43 @@ const items = [
   {cat:"Doors",  date:"09/02/2026", name:"Szyld Ambition QZ-540 WC black mat", qty:"1", unit:"22,48", gross:22.48},
   {cat:"Doors",  date:"09/02/2026", name:"Szyld Ambition QZ-540 na klucz black mat (×2)", qty:"2", unit:"17,98", gross:35.96},
   {cat:"Doors",  date:"09/02/2026", name:"Baza ościeżnicy regulowana Classen 80–100mm prawa white", qty:"1", unit:"340,20", gross:340.20},
+  // ── FURNITURE — IKEA 28 Mar 2026 (beds, chairs, tables, nightstands, chest) ──
+  {cat:"Furniture", date:"28/03/2026", name:"HEMNES N bed frame 80×200cm white — IKEA", qty:"1", unit:"1 399,00", gross:1399.00},
+  {cat:"Furniture", date:"28/03/2026", name:"HEMNES NN chest of drawers 3-drawer 108×96cm — IKEA", qty:"1", unit:"799,00", gross:799.00},
+  {cat:"Furniture", date:"28/03/2026", name:"ÅFJÄLL foam mattress 80×200cm medium/white — IKEA", qty:"2", unit:"249,00", gross:498.00},
+  {cat:"Furniture", date:"28/03/2026", name:"LISABO dining chair black — IKEA", qty:"4", unit:"249,00", gross:996.00},
+  {cat:"Furniture", date:"28/03/2026", name:"SUNDSÖ outdoor table 65×65cm anthracite — IKEA", qty:"1", unit:"179,00", gross:179.00},
+  {cat:"Furniture", date:"28/03/2026", name:"VÄSMAN outdoor armchair with armrests black — IKEA", qty:"2", unit:"199,00", gross:398.00},
+  {cat:"Furniture", date:"28/03/2026", name:"TONSTAD bed frame 140×200cm oak veneer — IKEA", qty:"1", unit:"1 499,00", gross:1499.00},
+  {cat:"Furniture", date:"28/03/2026", name:"VALEVÅG spring mattress 140×200cm firm/light blue — IKEA", qty:"1", unit:"999,00", gross:999.00},
+  {cat:"Furniture", date:"28/03/2026", name:"GILLERSBERG nightstand 39×39×56cm bamboo/white — IKEA", qty:"2", unit:"149,00", gross:298.00},
+  {cat:"Furniture", date:"28/03/2026", name:"IKEA delivery + carrying in (beds order) — IKEA", qty:"1", unit:"329,00", gross:329.00},
+  // ── LIGHTING — IKEA 28 Mar 2026 ──
+  {cat:"Furniture", date:"28/03/2026", name:"HAVSDJUP pendant lamp holder with cord — IKEA", qty:"2", unit:"20,00", gross:40.00},
+  {cat:"Furniture", date:"28/03/2026", name:"BRUNSTA lampshade — IKEA", qty:"1", unit:"29,99", gross:29.99},
+  {cat:"Furniture", date:"28/03/2026", name:"TRÅDFRI LED smart bulb E27 470lm — IKEA", qty:"2", unit:"49,99", gross:99.98},
+  {cat:"Furniture", date:"28/03/2026", name:"SOLHETTA LED bulb — IKEA", qty:"7", unit:"9,99", gross:69.93},
+  {cat:"Furniture", date:"28/03/2026", name:"NYMÅNE ceiling lamp 4-spot — IKEA", qty:"1", unit:"149,00", gross:149.00},
+  {cat:"Furniture", date:"28/03/2026", name:"NYMÅNE 3-spot ceiling lamp — IKEA", qty:"1", unit:"139,00", gross:139.00},
+  {cat:"Furniture", date:"28/03/2026", name:"ACKJA pendant lamp (lampa wisząca) — IKEA", qty:"1", unit:"79,99", gross:79.99},
+  {cat:"Furniture", date:"28/03/2026", name:"DYKARKLOCKA lampshade — IKEA", qty:"1", unit:"249,00", gross:249.00},
+  {cat:"Furniture", date:"28/03/2026", name:"LUNNOM LED bulb E27 — IKEA", qty:"2", unit:"29,99", gross:59.98},
+  // ── APPLIANCES — ETC Gdańsk 27 Mar 2026 ──
+  {cat:"Appliances", date:"27/03/2026", name:"BEKO HTU7716XW pralko-suszarka (washer-dryer) — ETC", qty:"1", unit:"1 299,00", gross:1299.00},
+  {cat:"Appliances", date:"27/03/2026", name:"Samsung QE55Q7F4AUXXH QLED 55\" TV — ETC", qty:"1", unit:"2 017,00", gross:2017.00},
+  {cat:"Appliances", date:"27/03/2026", name:"Samsung UE43U8092FUXXH 4K UHD 43\" TV — ETC", qty:"1", unit:"1 499,00", gross:1499.00},
+  {cat:"Appliances", date:"27/03/2026", name:"Wniesienie + rozpakowanie + zabranie opakowań — ETC", qty:"1", unit:"89,00", gross:89.00},
+  {cat:"Appliances", date:"27/03/2026", name:"Wniesienie bez rozpakowania TV (×2) — ETC", qty:"2", unit:"59,00", gross:118.00},
 ];
 
 const catColors = {
-  Kitchen:   '#4f9cf9',
-  Bathroom:  '#a78bfa',
-  Floor:     '#34d399',
-  Doors:     '#fbbf24',
-  Furniture: '#f97316',
-  Labour:    '#ec4899',
+  Kitchen:    '#4f9cf9',
+  Bathroom:   '#a78bfa',
+  Floor:      '#34d399',
+  Doors:      '#fbbf24',
+  Furniture:  '#f97316',
+  Appliances: '#06b6d4',
+  Labour:     '#ec4899',
 };
 
 let activeFilter = 'all';
@@ -812,10 +873,10 @@ function searchTable(val) {
 const donut = new Chart(document.getElementById('donutChart'), {
   type: 'doughnut',
   data: {
-    labels: ['Kitchen', 'Bathroom', 'Floors', 'Doors', 'Furniture', 'Labour'],
+    labels: ['Kitchen', 'Bathroom', 'Floors', 'Doors', 'Furniture', 'Appliances', 'Labour'],
     datasets: [{
-      data: [17637.74, 10648.00, 6002.24, 2413.08, 12244.96, 31600.00],
-      backgroundColor: ['#4f9cf9','#a78bfa','#34d399','#fbbf24','#f97316','#ec4899'],
+      data: [17637.74, 10648.00, 6002.24, 2413.08, 20555.83, 5022.00, 31600.00],
+      backgroundColor: ['#4f9cf9','#a78bfa','#34d399','#fbbf24','#f97316','#06b6d4','#ec4899'],
       borderColor: '#1a1d27',
       borderWidth: 3,
       hoverOffset: 8,
@@ -893,33 +954,18 @@ new Chart(document.getElementById('barChart'), {
 renderTable();
 
 // ── Still to Buy ──
-const STB_KEY = 'gdansk_stb_v2';
+const STB_KEY = 'gdansk_stb_v3';
 
-// Template items — name is generic, suggested is the estimated price from the planning sheet
+// Template items — prices are editable (click ✏️). Purchased items moved to the Items table above.
 const stbTemplate = [
-  { group: '🛏️ Beds & Mattresses', items: [
-    { id:'bed1',   name:'Bed frame 160×200cm (double)',          room:'Master Bedroom', suggested:2299 },
-    { id:'bed2',   name:'Mattress 160×200cm (double)',           room:'Master Bedroom', suggested:1299 },
-    { id:'bed3',   name:'Bed frame 90×200cm (single)',           room:'Guest Bedroom',  suggested:799  },
-    { id:'bed4',   name:'Mattress 90×200cm (single)',            room:'Guest Bedroom',  suggested:849  },
-    { id:'bed5',   name:'Bedside table (×2)',                    room:'Master Bedroom', suggested:300  },
-    { id:'bed6',   name:'Bedside table (×1)',                    room:'Guest Bedroom',  suggested:150  },
-    { id:'bed7',   name:'Bedding set — duvet + pillow + sheets (double)', room:'Master Bedroom', suggested:350 },
-    { id:'bed8',   name:'Bedding set — duvet + pillow + sheets (single)', room:'Guest Bedroom', suggested:250 },
-    { id:'bed9',   name:'Chest of drawers / cupboard',                   room:'Guest Bedroom',  suggested:600 },
+  { group: '🛏️ Bedding', items: [
+    { id:'bed7',   name:'Bedding set — duvet + pillow + cover (double)', room:'Master Bedroom', suggested:350 },
+    { id:'bed8',   name:'Bedding set — duvet + pillow + cover (single)', room:'Guest Bedroom',  suggested:250 },
+    { id:'bed10',  name:'Extra pillows set (×4)',                         room:'All bedrooms',   suggested:120 },
   ]},
-  { group: '🛋️ Living Room', items: [
-    { id:'liv4',   name:'TV set — living room',                  room:'Living Room',    suggested:2000 },
-    { id:'liv5',   name:'TV set — bedroom',                      room:'Master Bedroom', suggested:1200 },
-    { id:'liv6',   name:'Dining chairs (×4)',                    room:'Living/Kitchen', suggested:800  },
-  ]},
-  { group: '🧺 Appliances', items: [
-    { id:'app1',   name:'Washing machine',                       room:'Hallway (WD)',   suggested:1800 },
-  ]},
-  { group: '💡 Lighting', items: [
-    { id:'light1', name:'Ceiling light — living/bedroom (×3)',   room:'All rooms',      suggested:387  },
+  { group: '💡 Lighting (remaining)', items: [
     { id:'light2', name:'Ceiling light IP44 — bathroom (×2)',    room:'Bathroom',       suggested:178  },
-    { id:'light3', name:'Standing lamp / floor lamp',            room:'Living Room',    suggested:350  },
+    { id:'light3', name:'Standing / floor lamp',                 room:'Living Room',    suggested:350  },
   ]},
   { group: '🪵 Rugs', items: [
     { id:'rug1',   name:'Rug — living room',                     room:'Living Room',    suggested:600  },
@@ -956,9 +1002,6 @@ const stbTemplate = [
     { id:'home3',  name:'Smoke detector (×2)',                   room:'All rooms',      suggested:70   },
     { id:'home4',  name:'Shoe cabinet / coat hooks',             room:'Hallway',        suggested:350  },
     { id:'home5',  name:'Vacuum cleaner',                        room:'General',        suggested:600  },
-  ]},
-  { group: '🌿 Balcony', items: [
-    { id:'balk1',  name:'Balcony table + 2 chairs set',          room:'Balkon 7.37m²',  suggested:500  },
   ]},
   { group: '🔧 Services (pending)', items: [
     { id:'srv1',   name:'Furniture assembly (~20% of purchase value)', room:'All rooms', suggested:1950 },
