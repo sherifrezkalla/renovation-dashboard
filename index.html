@@ -481,15 +481,15 @@
   </div>
   <div class="kpi-card labour">
     <div class="kpi-label"><span class="kpi-dot" style="background:var(--labour)"></span> Labour</div>
-    <div class="kpi-pln" style="color:var(--labour)">31 600 zł</div>
-    <div class="kpi-eur">≈ €7 524</div>
-    <div class="kpi-items">6 services + materials</div>
+    <div class="kpi-pln" style="color:var(--labour)">52 000 zł</div>
+    <div class="kpi-eur">≈ €12 381</div>
+    <div class="kpi-items">11 items · renovation + assembly + final settlement</div>
   </div>
   <div class="kpi-card total">
     <div class="kpi-label"><span class="kpi-dot" style="background:linear-gradient(90deg,var(--kitchen),var(--bathroom))"></span> Total Spent</div>
-    <div class="kpi-pln">93 879 zł</div>
-    <div class="kpi-eur">≈ €22 352</div>
-    <div class="kpi-items">114 items · materials + labour</div>
+    <div class="kpi-pln">114 279 zł</div>
+    <div class="kpi-eur">≈ €27 209</div>
+    <div class="kpi-items">118 items · materials + labour</div>
   </div>
 </div>
 
@@ -498,7 +498,7 @@
   <div class="forecast-col">
     <div class="forecast-label">✅ Spent so far</div>
     <div class="forecast-value spent" id="forecastSpent">—</div>
-    <div class="forecast-sub">114 items · all receipts</div>
+    <div class="forecast-sub">118 items · all receipts</div>
   </div>
   <div class="forecast-op">+</div>
   <div class="forecast-col">
@@ -701,10 +701,26 @@
       <div class="bar-track"><div class="bar-fill" style="background:var(--labour);width:7%"></div></div>
     </div>
     <div class="bar-row" style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px;">
-      <div class="bar-label"><span>Materiały robocze — labour materials</span><span>5 600 zł</span></div>
+      <div class="bar-label"><span>Materiały robocze — faza 1</span><span>5 600 zł</span></div>
       <div class="bar-track"><div class="bar-fill" style="background:var(--labour);width:56%;opacity:0.6"></div></div>
     </div>
-    <p class="note">Robocizna: 26 000 zł + Materiały: 5 600 zł = 31 600 zł · ≈ €7 524 · Assembly pending: 7 102 zł (20% × 35 509 zł: kitchen 17 638 zł + furniture 17 871 zł)</p>
+    <div class="bar-row" style="margin-top:8px;border-top:1px solid var(--border);padding-top:8px;">
+      <div class="bar-label"><span>Montaż mebli (20% × 37 000 zł) ✅ final</span><span>7 400 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--labour);width:74%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Robocizna — końcowe rozliczenie ✅ final</span><span>8 000 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--labour);width:80%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Montaż karniszy, lamp i telewizorów ✅ final</span><span>600 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--labour);width:6%"></div></div>
+    </div>
+    <div class="bar-row">
+      <div class="bar-label"><span>Materiały — końcowe rozliczenie ✅ final</span><span>4 400 zł</span></div>
+      <div class="bar-track"><div class="bar-fill" style="background:var(--labour);width:44%;opacity:0.6"></div></div>
+    </div>
+    <p class="note">Faza 1: 26 000 zł robocizna + 5 600 zł materiały = 31 600 zł · Faza 2 (końcowe rozliczenie): 8 000 + 7 400 + 600 + 4 400 = 20 400 zł · Total labour: 52 000 zł ≈ €12 381</p>
   </div>
 </div>
 
@@ -895,6 +911,11 @@ const items = [
   {cat:"Appliances", date:"27/03/2026", name:"Samsung UE43U8092FUXXH 4K UHD 43\" TV — ETC", qty:"1", unit:"1 499,00", gross:1499.00},
   {cat:"Appliances", date:"27/03/2026", name:"Wniesienie + rozpakowanie + zabranie opakowań — ETC", qty:"1", unit:"89,00", gross:89.00},
   {cat:"Appliances", date:"27/03/2026", name:"Wniesienie bez rozpakowania TV (×2) — ETC", qty:"2", unit:"59,00", gross:118.00},
+  // ── LABOUR — Final settlement (Apr 2026) ──
+  {cat:"Labour", date:"12/04/2026", name:"Montaż mebli — furniture assembly (20% × 37 000 zł)", qty:"1", unit:"7 400,00", gross:7400.00},
+  {cat:"Labour", date:"12/04/2026", name:"Montaż karniszy, lamp i telewizorów — curtain rods, lamps & TVs", qty:"1", unit:"600,00", gross:600.00},
+  {cat:"Labour", date:"12/04/2026", name:"Robocizna — końcowe rozliczenie (final labour settlement)", qty:"1", unit:"8 000,00", gross:8000.00},
+  {cat:"Labour", date:"12/04/2026", name:"Materiały — końcowe rozliczenie (final materials)", qty:"1", unit:"4 400,00", gross:4400.00},
 ];
 
 const catColors = {
@@ -956,7 +977,7 @@ const donut = new Chart(document.getElementById('donutChart'), {
   data: {
     labels: ['Kitchen', 'Bathroom', 'Floors', 'Doors', 'Furniture', 'Appliances', 'Labour'],
     datasets: [{
-      data: [17637.74, 10648.00, 6002.24, 2413.08, 20555.83, 5022.00, 31600.00],
+      data: [17637.74, 10648.00, 6002.24, 2413.08, 20555.83, 5022.00, 52000.00],
       backgroundColor: ['#4f9cf9','#a78bfa','#34d399','#fbbf24','#f97316','#06b6d4','#ec4899'],
       borderColor: '#1a1d27',
       borderWidth: 3,
@@ -1083,9 +1104,6 @@ const stbTemplate = [
     { id:'home3',  name:'Smoke detector (×2)',                   room:'All rooms',      suggested:70   },
     { id:'home4',  name:'Shoe cabinet / coat hooks',             room:'Hallway',        suggested:350  },
     { id:'home5',  name:'Vacuum cleaner',                        room:'General',        suggested:600  },
-  ]},
-  { group: '🔧 Services (pending)', items: [
-    { id:'srv1',   name:'Assembly & installation — 20% × 35 509 zł (kitchen + all furniture, excl. mattresses, delivery, bulbs)', room:'All rooms', suggested:7102 },
   ]},
 ];
 
