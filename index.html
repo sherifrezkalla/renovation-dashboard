@@ -481,15 +481,15 @@
   </div>
   <div class="kpi-card labour">
     <div class="kpi-label"><span class="kpi-dot" style="background:var(--labour)"></span> Labour</div>
-    <div class="kpi-pln" style="color:var(--labour)">52 000 zł</div>
-    <div class="kpi-eur">≈ €12 381</div>
-    <div class="kpi-items">11 items · renovation + assembly + final settlement</div>
+    <div class="kpi-pln" style="color:var(--labour)">44 000 zł</div>
+    <div class="kpi-eur">≈ €10 476</div>
+    <div class="kpi-items">9 items · renovation + assembly + final settlement</div>
   </div>
   <div class="kpi-card total">
     <div class="kpi-label"><span class="kpi-dot" style="background:linear-gradient(90deg,var(--kitchen),var(--bathroom))"></span> Total Spent</div>
-    <div class="kpi-pln">114 279 zł</div>
-    <div class="kpi-eur">≈ €27 209</div>
-    <div class="kpi-items">118 items · materials + labour</div>
+    <div class="kpi-pln">106 279 zł</div>
+    <div class="kpi-eur">≈ €25 304</div>
+    <div class="kpi-items">116 items · materials + labour</div>
   </div>
 </div>
 
@@ -498,7 +498,7 @@
   <div class="forecast-col">
     <div class="forecast-label">✅ Spent so far</div>
     <div class="forecast-value spent" id="forecastSpent">—</div>
-    <div class="forecast-sub">118 items · all receipts</div>
+    <div class="forecast-sub">116 items · all receipts</div>
   </div>
   <div class="forecast-op">+</div>
   <div class="forecast-col">
@@ -720,7 +720,7 @@
       <div class="bar-label"><span>Materiały — końcowe rozliczenie ✅ final</span><span>4 400 zł</span></div>
       <div class="bar-track"><div class="bar-fill" style="background:var(--labour);width:44%;opacity:0.6"></div></div>
     </div>
-    <p class="note">Faza 1: 26 000 zł robocizna + 5 600 zł materiały = 31 600 zł · Faza 2 (końcowe rozliczenie): 8 000 + 7 400 + 600 + 4 400 = 20 400 zł · Total labour: 52 000 zł ≈ €12 381</p>
+    <p class="note">Faza 1: 26 000 zł robocizna + 5 600 zł materiały = 31 600 zł · Faktura 1/04/2026 (ZAKŁAD WIELOBRANŻOWY): robocizna 8 000 + materiały 4 400 = 12 400 zł · Płatność do: 17.04.2026 · Total: 44 000 zł ≈ €10 476</p>
   </div>
 </div>
 
@@ -911,11 +911,9 @@ const items = [
   {cat:"Appliances", date:"27/03/2026", name:"Samsung UE43U8092FUXXH 4K UHD 43\" TV — ETC", qty:"1", unit:"1 499,00", gross:1499.00},
   {cat:"Appliances", date:"27/03/2026", name:"Wniesienie + rozpakowanie + zabranie opakowań — ETC", qty:"1", unit:"89,00", gross:89.00},
   {cat:"Appliances", date:"27/03/2026", name:"Wniesienie bez rozpakowania TV (×2) — ETC", qty:"2", unit:"59,00", gross:118.00},
-  // ── LABOUR — Final settlement (Apr 2026) ──
-  {cat:"Labour", date:"12/04/2026", name:"Montaż mebli — furniture assembly (20% × 37 000 zł)", qty:"1", unit:"7 400,00", gross:7400.00},
-  {cat:"Labour", date:"12/04/2026", name:"Montaż karniszy, lamp i telewizorów — curtain rods, lamps & TVs", qty:"1", unit:"600,00", gross:600.00},
-  {cat:"Labour", date:"12/04/2026", name:"Robocizna — końcowe rozliczenie (final labour settlement)", qty:"1", unit:"8 000,00", gross:8000.00},
-  {cat:"Labour", date:"12/04/2026", name:"Materiały — końcowe rozliczenie (final materials)", qty:"1", unit:"4 400,00", gross:4400.00},
+  // ── LABOUR — Final settlement Faktura 1/04/2026 — ZAKŁAD WIELOBRANŻOWY MACIEJ MATUSZAK ──
+  {cat:"Labour", date:"12/04/2026", name:"Robocizna — montaż mebli 20% × 37 000 zł (7 400) + karnisze/lampy/TV (600)", qty:"1", unit:"8 000,00", gross:8000.00},
+  {cat:"Labour", date:"12/04/2026", name:"Materiały — końcowe rozliczenie (Faktura 1/04/2026)", qty:"1", unit:"4 400,00", gross:4400.00},
 ];
 
 const catColors = {
@@ -977,7 +975,7 @@ const donut = new Chart(document.getElementById('donutChart'), {
   data: {
     labels: ['Kitchen', 'Bathroom', 'Floors', 'Doors', 'Furniture', 'Appliances', 'Labour'],
     datasets: [{
-      data: [17637.74, 10648.00, 6002.24, 2413.08, 20555.83, 5022.00, 52000.00],
+      data: [17637.74, 10648.00, 6002.24, 2413.08, 20555.83, 5022.00, 44000.00],
       backgroundColor: ['#4f9cf9','#a78bfa','#34d399','#fbbf24','#f97316','#06b6d4','#ec4899'],
       borderColor: '#1a1d27',
       borderWidth: 3,
