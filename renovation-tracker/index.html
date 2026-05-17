@@ -1124,28 +1124,10 @@ new Chart(document.getElementById('barChart'), {
 renderTable();
 
 // ── Still to Buy ──
-const STB_KEY = 'gdansk_stb_v6';
+const STB_KEY = 'gdansk_stb_v7';
 
-// Template items — prices are editable (click ✏️). Purchased items moved to the Items table above.
-const stbTemplate = [
-  { group: '🪵 Rugs', items: [
-    { id:'rug1',   name:'Rug — living room',                     room:'Living Room',    suggested:600  },
-    { id:'rug3',   name:'Rug — guest bedroom',                   room:'Guest Bedroom',  suggested:300  },
-  ]},
-  { group: '🍳 Kitchen (remaining)', items: [
-    { id:'kit8',   name:'Kitchen utensils set (spatula, ladle…)',  room:'Kitchen',        suggested:80   },
-    { id:'kit11',  name:'Baking tray / oven dish',                 room:'Kitchen',        suggested:60   },
-  ]},
-  { group: '🚿 Bathroom Accessories', items: [
-    { id:'bacc1',  name:'Towel rail (×2)',                       room:'Bathroom',       suggested:98   },
-  ]},
-  { group: '🏠 Home Essentials', items: [
-    { id:'home1',  name:'Recycling bin set (×2)',                room:'Kitchen',        suggested:158  },
-    { id:'home2',  name:'Entrance mat',                          room:'Entrance',       suggested:89   },
-    { id:'home3',  name:'Smoke detector (×2)',                   room:'All rooms',      suggested:70   },
-    { id:'home4',  name:'Shoe cabinet / coat hooks',             room:'Hallway',        suggested:350  },
-  ]},
-];
+// All items purchased or no longer needed — flat is done!
+const stbTemplate = [];
 
 function loadSTB() {
   try { return JSON.parse(localStorage.getItem(STB_KEY) || '{}'); } catch(e) { return {}; }
